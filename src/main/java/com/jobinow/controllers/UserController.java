@@ -61,4 +61,15 @@ public class UserController {
     public ResponseEntity<Page<UserResponses>> getAgents(Pageable pageable) {
         return ResponseEntity.ok(service.getAllAgent(pageable));
     }
+
+    /**
+     * Retrieves a paginated list of recruiters.
+     *
+     * @param pageable The pagination information.
+     * @return ResponseEntity containing a paginated list of recruiter users.
+     */
+    @GetMapping("/recruiters")
+    public ResponseEntity<Page<UserResponses>> getRecruiters(Pageable pageable) {
+        return ResponseEntity.ok(service.getAllRecruiters(pageable));
+    }
 }

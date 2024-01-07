@@ -96,7 +96,7 @@ public class AuthenticationController {
         if (bindingResult.hasErrors())
             throw new ResourceNotCreatedException(bindingResult);
 
-        return ResponseEntity.ok(service.registerAgent(request));
+        return ResponseEntity.ok(service.registerRecruiter(request));
     }
 
     /**

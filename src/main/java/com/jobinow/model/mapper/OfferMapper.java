@@ -5,7 +5,6 @@ import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.entities.Offer;
 import org.mapstruct.*;
 
-import java.lang.annotation.Target;
 import java.util.UUID;
 
 /**
@@ -21,4 +20,12 @@ public interface OfferMapper extends _Mapper<UUID, OfferRequest, OfferResponse, 
     @Override
     @Mapping(target = "recruiter", source = "recruiter")
     Offer toEntityFromRequest(OfferRequest request);
+
+    @Override
+    @Mapping(target = "recruiter", source = "recruiter")
+    Offer toEntityFromResponse(OfferResponse response);
+
+    @Override
+    @Mapping(target = "recruiter", source = "recruiter")
+    OfferResponse toResponse(Offer entity);
 }

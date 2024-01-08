@@ -36,7 +36,7 @@ public interface ApplyMapper extends _Mapper<UUID, ApplyRequest, ApplyResponse, 
      * @return The mapped Apply entity.
      */
     @Override
-    @Mapping(target = "attachmentUrls", source = "resumePdfs")
+    @Mapping(target = "resumePdfs", source = "resumePdfs")
     Apply toEntityFromResponse(ApplyResponse response);
 
     /**
@@ -46,6 +46,6 @@ public interface ApplyMapper extends _Mapper<UUID, ApplyRequest, ApplyResponse, 
      * @return The mapped ApplyResponse DTO.
      */
     @Override
-    @Mapping(target = "attachmentUrls", source = "resumePdfs")
+    @Mapping(target = "resumePdfs", source = "resumePdfs")
     ApplyResponse toResponse(Apply entity);
 }

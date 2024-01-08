@@ -117,7 +117,7 @@ public class User extends AbstractEntity implements UserDetails {
             fetch = FetchType.LAZY,
             targetEntity = Company.class
     )
-    @JoinColumn(name = "company_id")
+    @JoinTable(name = "user_companies")
     private Company recruitedCompanies;
 
     /**

@@ -1,6 +1,7 @@
 package com.jobinow.model.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,11 +34,13 @@ public class Attachment extends AbstractEntity {
      * The job application to which the attachment belongs.
      */
     @ManyToOne
+    @JoinTable(name = "attachment_apply")
     private Apply apply;
 
     /**
      * The company associated with the attachment.
      */
     @ManyToOne
+    @JoinTable(name = "attachment_company")
     private Company company;
 }

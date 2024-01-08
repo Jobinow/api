@@ -12,11 +12,11 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
- * DTO for {@link AbstractEntity};
- * AbstractResponse serves as a base class for response DTOs.
- * It includes common fields such as id, createdAt, updatedAt, and version.
+ * Base class for response DTOs representing {@link AbstractEntity}.
+ * AbstractResponse includes common fields such as id, createdAt, updatedAt, and version.
  * This class is intended to be extended by specific response DTOs in the system.
  *
+ * @version 1.0
  * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Getter
@@ -25,9 +25,25 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class AbstractResponse implements _Response {
-    UUID id;
-    Timestamp createdAt;
-    Timestamp updatedAt;
-    Long version;
+public abstract class AbstractResponse implements _Response<UUID> {
+
+    /**
+     * The unique identifier of the entity.
+     */
+    private UUID id;
+
+    /**
+     * The timestamp when the entity was created.
+     */
+    private Timestamp createdAt;
+
+    /**
+     * The timestamp when the entity was last updated.
+     */
+    private Timestamp updatedAt;
+
+    /**
+     * The version number of the entity.
+     */
+    private Long version;
 }

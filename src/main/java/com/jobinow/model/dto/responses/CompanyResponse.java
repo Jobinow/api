@@ -37,4 +37,6 @@ public class CompanyResponse extends AbstractResponse {
     String imageUrl;
 
     AddressDto address;
+
+    UserResponses manager;
 }

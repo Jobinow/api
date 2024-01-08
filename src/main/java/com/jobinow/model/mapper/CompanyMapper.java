@@ -1,12 +1,12 @@
 package com.jobinow.model.mapper;
 
 import com.jobinow.model.dto.requests.CompanyRequest;
+import com.jobinow.model.dto.requests.CompanyRequest;
+import com.jobinow.model.dto.responses.CompanyResponse;
 import com.jobinow.model.dto.responses.CompanyResponse;
 import com.jobinow.model.entities.Company;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import com.jobinow.model.entities.Company;
+import org.mapstruct.*;
 
 import java.util.UUID;
 
@@ -20,4 +20,15 @@ import java.util.UUID;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface CompanyMapper extends _Mapper<UUID, CompanyRequest, CompanyResponse, Company> {
+    @Override
+    @Mapping(target = "manager", source = "manager")
+    Company toEntityFromRequest(CompanyRequest request);
+
+    @Override
+    @Mapping(target = "manager", source = "manager")
+    Company toEntityFromResponse(CompanyResponse response);
+
+    @Override
+    @Mapping(target = "manager", source = "manager")
+    CompanyResponse toResponse(Company entity);
 }

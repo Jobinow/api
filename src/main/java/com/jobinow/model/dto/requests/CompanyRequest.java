@@ -1,9 +1,11 @@
 package com.jobinow.model.dto.requests;
 
 import com.jobinow.model.dto.basic.AddressDto;
+import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Company;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 
@@ -28,6 +30,9 @@ public record CompanyRequest(
         @URL(message = "Image URL must be valid")
         String imageUrl,
 
-        AddressDto address
+        AddressDto address,
+
+        @NotNull(message = "manager requirements cannot be blank")
+        UserResponses manager
 ) implements _Request {
 }

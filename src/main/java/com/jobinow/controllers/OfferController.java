@@ -13,6 +13,6 @@ import java.util.UUID;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("api/v2/Offer")
+@RequestMapping("api/v2/offer")
 public class OfferController extends _Controller<UUID, OfferRequest, OfferResponse, OfferService> {
 }

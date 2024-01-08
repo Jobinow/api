@@ -5,6 +5,7 @@ import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.mapper.UserMapper;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 /**
@@ -30,7 +31,7 @@ public record OfferRequest(
         @PositiveOrZero(message = "Salary must be a non-negative value")
         Double salary,
 
-        @NotBlank(message = "recruiter requirements cannot be blank")
+        @NotNull(message = "recruiter requirements cannot be blank")
         UserResponses recruiter
 ) implements _Request {
 }

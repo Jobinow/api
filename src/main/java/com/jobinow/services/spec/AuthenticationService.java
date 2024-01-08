@@ -44,6 +44,7 @@ public interface AuthenticationService {
      * @return AuthenticationResponse containing access and refresh tokens
      */
     AuthenticationResponse registerAgent(RegisterRequest request);
+    AuthenticationResponse registerRecruiter(RegisterRequest request);
 
     /**
      * Authenticates a user and generates new access and refresh tokens.

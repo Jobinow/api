@@ -4,6 +4,7 @@ import com.jobinow.model.enums.CompanyStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -97,6 +98,7 @@ public class Company extends AbstractEntity {
             name = "manager_id",
             referencedColumnName = "id"
     )
+    @NotNull(message = "Manager cannot be null")
     private User manager;
 
     /**

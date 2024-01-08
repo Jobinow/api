@@ -52,4 +52,5 @@ public class OfferResponse extends AbstractResponse {
 
     List<TagResponse> tags;
 
+    UserResponses recruiter;
 }

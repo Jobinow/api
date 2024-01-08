@@ -1,14 +1,13 @@
 package com.jobinow.model.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jobinow.model.dto.responses.AttachmentResponse;
-import com.jobinow.model.dto.responses.OfferResponse;
-import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Apply;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
 import java.util.Set;
 
 /**

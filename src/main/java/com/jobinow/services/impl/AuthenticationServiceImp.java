@@ -90,6 +90,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
      * @param role    Role of the user to be created
      * @return AuthenticationResponse containing access and refresh tokens for the newly created user
      */
+    public AuthenticationResponse registerRecruiter(RegisterRequest request) {
+        return this.createUser(request, Role.RECRUITER);
+    }
+
     private AuthenticationResponse createUser(RegisterRequest request, Role role) {
         log.info("Creating a new user with role: {}", role);
 

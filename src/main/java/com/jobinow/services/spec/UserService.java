@@ -56,6 +56,14 @@ public interface UserService {
     Page<UserResponses> getAllJobSeeker(Pageable pageable);
 
     /**
+     * Retrieves a paginated list of all recruiters.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of all recruiters.
+     */
+    Page<UserResponses> getAllRecruiters(Pageable pageable);
+
+    /**
      * Changes the password for the user identified by the connected user principal.
      *
      * @param request       The request containing the old and new passwords.

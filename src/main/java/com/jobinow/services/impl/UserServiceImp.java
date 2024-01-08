@@ -82,6 +82,18 @@ public class UserServiceImp implements UserService {
                 .map(mapper::toResponse);
     }
 
+
+    /**
+     * Retrieves a paginated list of recruiter users.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of recruiter users.
+     */
+    public Page<UserResponses> getAllRecruiters(Pageable pageable) {
+        return repository.findAllByRole(Role.RECRUITER, pageable)
+                .map(mapper::toResponse);
+    }
+
     /**
      * Retrieves a user by email.
      *

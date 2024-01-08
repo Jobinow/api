@@ -1,5 +1,6 @@
 package com.jobinow.model.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
@@ -33,14 +34,14 @@ public class Attachment extends AbstractEntity {
     /**
      * The job application to which the attachment belongs.
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "attachment_apply")
     private Apply apply;
 
     /**
      * The company associated with the attachment.
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "attachment_company")
     private Company company;
 }

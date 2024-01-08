@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * DTO class representing the response for authentication.
  * Contains access and refresh tokens.
@@ -18,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse implements _Response {
+public class AuthenticationResponse implements Serializable {
     /**
      * Access token for authentication.
      */

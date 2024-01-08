@@ -53,6 +53,10 @@ public class Apply extends AbstractEntity {
     /**
      * The set of resume attachments (PDFs) associated with the application.
      */
-    @OneToMany
+    @OneToMany(
+            mappedBy = "apply",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<Attachment> resumePdfs;
 }

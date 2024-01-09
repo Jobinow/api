@@ -3,6 +3,7 @@ package com.jobinow.repositories;
 import com.jobinow.model.entities.ChatRoom;
 import com.jobinow.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -14,7 +15,9 @@ import java.util.UUID;
  * by sender and recipient IDs.</p>
  *
  * @version 1.0
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
+@Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, UUID> {
 
     /**

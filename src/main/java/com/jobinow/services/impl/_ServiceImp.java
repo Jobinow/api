@@ -18,6 +18,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,12 +54,26 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
     }
 
     /**
+     * Retrieves a list of all entities.
+     *
+     * @return List of response DTOs representing all entities.
+     */
+    @Cacheable
+    public List<Res> getAll() {
+        assert repository != null;
+        assert mapper != null;
+        return mapper.toResponse(
+                repository.findAll()
+        );
+    }
+
+    /**
      * Retrieves all entities in a paginated form.
      *
      * @param pageable Pagination information.
      * @return Page of response DTOs.
      */
-    @Cacheable
+    @Cacheable(key = "#pageable")
     public Page<Res> getAll(Pageable pageable) {
         assert repository != null;
         assert mapper != null;
@@ -100,8 +115,11 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param response DTO containing updated data.
      * @return Optional containing the response DTO of the updated entity.
      */
+    @CachePut(
+            value = "file",
+            key = "#response.id"
+    )
     @Transactional
-    @CachePut(value = "file", key = "#response.id")
     public Optional<Res> update(@Valid Res response) {
         assert mapper != null;
         Entity entityToUpdate = mapper.toEntityFromResponse(response);
@@ -136,7 +154,10 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @return Boolean indicating the success of the deletion operation.
      */
     @Transactional
-    @CacheEvict(key = "#response.id", allEntries = true)
+    @CacheEvict(
+            key = "#response.id",
+            allEntries = true
+    )
     public Boolean delete(@Valid Res response) {
         assert mapper != null;
         Entity entityToDelete = mapper.toEntityFromResponse(response);

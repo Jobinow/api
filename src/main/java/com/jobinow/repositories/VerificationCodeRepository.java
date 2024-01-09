@@ -4,12 +4,15 @@ import com.jobinow.model.entities.VerificationCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 /**
  * This interface extends JpaRepository to inherit basic CRUD operations for VerificationCode entities.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
+@Repository
 public interface VerificationCodeRepository extends JpaRepository<VerificationCode, UUID> {
 
     /**

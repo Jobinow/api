@@ -10,11 +10,12 @@ import java.util.UUID;
 
 /**
  * Spring Data JPA repository for the {@link Offer} entity.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, UUID> {
     @Query("SELECT Offer FROM Offer Offer " +
-            "JOIN Apply apply ON apply.Offer.id = Offer.id " +
+            "JOIN Apply apply ON apply.offer.id = Offer.id " +
             "JOIN User jobSeeker ON apply.jobSeeker.id = jobSeeker.id " +
             "WHERE jobSeeker.id = :jobSeekerId")
     List<Offer> findJobSeekerAppliedToOffers(UUID jobSeekerId);

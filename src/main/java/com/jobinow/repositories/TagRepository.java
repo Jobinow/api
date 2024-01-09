@@ -8,6 +8,7 @@ import java.util.UUID;
 
 /**
  * Spring Data JPA repository for the {@link Tag} entity.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Repository
 public interface TagRepository extends JpaRepository<Tag, UUID> {

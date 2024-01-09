@@ -22,7 +22,7 @@ import java.util.Set;
 public class ApplyResponse extends AbstractResponse {
     UserResponses jobSeeker;
 
-    OfferResponse Offer;
+    OfferResponse offer;
 
     Set<AttachmentResponse> resumePdfs;
 }

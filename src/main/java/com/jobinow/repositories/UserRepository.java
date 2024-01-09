@@ -19,6 +19,7 @@ import java.util.UUID;
  * email or ID, and retrieving users based on their status.</p>
  *
  * @version 1.0
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Repository
 @NonNullApi

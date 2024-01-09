@@ -3,7 +3,7 @@ services:
     image: 'postgres:latest'
     container_name: jobinow-db
     environment:
-      - POSTGRES_DB=Jobinow
+      - POSTGRES_DB=jobinow
       - POSTGRES_PASSWORD=Youcode@2023
       - POSTGRES_USER=postgres
       - PGDATA=/data/postgres

@@ -6,15 +6,25 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
- * Generic service interface with common CRUD operations.
+ * Generic service interface with common CRUD (Create, Read, Update, Delete) operations.
  *
+ * @param <ID>  The type of the unique identifier.
  * @param <Req> The request DTO type.
  * @param <Res> The response DTO type.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
-public interface _Service<ID, Req extends _Request, Res extends _Response> {
+public interface _Service<ID, Req extends _Request, Res extends _Response<ID>> {
+
+    /**
+     * Retrieves a list of all entities.
+     *
+     * @return List of response DTOs representing all entities.
+     */
+    List<Res> getAll();
 
     /**
      * Retrieves all entities in a paginated form.

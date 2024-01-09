@@ -6,6 +6,7 @@ import com.jobinow.model.entities.Apply;
 import com.jobinow.model.mapper.ApplyMapper;
 import com.jobinow.repositories.ApplyRepository;
 import com.jobinow.services.spec.ApplyService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -18,5 +19,6 @@ import java.util.UUID;
  * @see _ServiceImp
  */
 @Service
+@CacheConfig(cacheNames = "apply")
 public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyResponse, Apply, ApplyRepository, ApplyMapper> implements ApplyService {
 }

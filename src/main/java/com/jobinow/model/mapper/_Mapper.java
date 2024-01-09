@@ -8,6 +8,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Generic mapper interface for converting between DTOs (Data Transfer Objects) and entities.
@@ -16,8 +17,9 @@ import java.sql.Timestamp;
  * @param <Req>    The type of the request DTO.
  * @param <Res>    The type of the response DTO.
  * @param <Entity> The type of the entity.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
-public interface _Mapper<ID, Req extends _Request, Res extends _Response, Entity extends _Entity<ID>> {
+public interface _Mapper<ID, Req extends _Request, Res extends _Response<ID>, Entity extends _Entity<ID>> {
 
     /**
      * Converts a request DTO to an entity.
@@ -42,6 +44,8 @@ public interface _Mapper<ID, Req extends _Request, Res extends _Response, Entity
      * @return Converted response DTO.
      */
     Res toResponse(Entity entity);
+
+    List<Res> toResponse(List<Entity> entity);
 
     /**
      * Applies partial updates from the request DTO to the entity, ignoring null values.

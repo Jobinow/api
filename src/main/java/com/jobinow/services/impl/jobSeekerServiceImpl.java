@@ -6,6 +6,7 @@ import com.jobinow.repositories.OfferRepository;
 import com.jobinow.services.spec.JobSeekerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "jobSeeker")
 public class jobSeekerServiceImpl implements JobSeekerService {
     private final OfferRepository OfferRepository;
 

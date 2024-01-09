@@ -14,6 +14,7 @@ import com.jobinow.services.spec.CompanyServices;
 import com.jobinow.services.spec.VerificationCodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "company")
 public class CompanyServicesImp extends _ServiceImp<UUID, CompanyRequest, CompanyResponse, Company, CompanyRepository, CompanyMapper> implements CompanyServices {
 
     private final ApplicationEventPublisher eventPublisher;

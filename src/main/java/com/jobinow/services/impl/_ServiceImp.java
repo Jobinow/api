@@ -11,12 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,14 +29,14 @@ import java.util.Optional;
  * @param <Entity>     The entity type.
  * @param <Repository> The repository type extending JpaRepository<Entity, UUID>.
  * @param <Mapper>     The mapper type implementing _Mapper<Req, Res, Entity>.
- *
  * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Slf4j
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Response, Entity extends _Entity<ID>, Repository extends JpaRepository<Entity, ID>, Mapper extends _Mapper<ID, Req, Res, Entity>> implements _Service<ID, Req, Res> {
+@CacheConfig(cacheNames = "EntityCache")
+public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Response<ID>, Entity extends _Entity<ID>, Repository extends JpaRepository<Entity, ID>, Mapper extends _Mapper<ID, Req, Res, Entity>> implements _Service<ID, Req, Res> {
 
     Mapper mapper;
     Repository repository;
@@ -52,11 +54,26 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
     }
 
     /**
+     * Retrieves a list of all entities.
+     *
+     * @return List of response DTOs representing all entities.
+     */
+    @Cacheable
+    public List<Res> getAll() {
+        assert repository != null;
+        assert mapper != null;
+        return mapper.toResponse(
+                repository.findAll()
+        );
+    }
+
+    /**
      * Retrieves all entities in a paginated form.
      *
      * @param pageable Pagination information.
      * @return Page of response DTOs.
      */
+    @Cacheable(key = "#pageable")
     public Page<Res> getAll(Pageable pageable) {
         assert repository != null;
         assert mapper != null;
@@ -70,6 +87,14 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param request DTO containing data for entity creation.
      * @return Optional containing the response DTO of the created entity.
      */
+    @Caching(
+            evict = {
+                    @CacheEvict(
+                            key = "#result.get().getId()",
+                            allEntries = true, condition = "#result.get().id != null"
+                    )
+            }
+    )
     @Transactional
     public Optional<Res> create(@Valid Req request) {
         assert mapper != null;
@@ -90,6 +115,10 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param response DTO containing updated data.
      * @return Optional containing the response DTO of the updated entity.
      */
+    @CachePut(
+            value = "file",
+            key = "#response.id"
+    )
     @Transactional
     public Optional<Res> update(@Valid Res response) {
         assert mapper != null;
@@ -110,6 +139,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param id Unique identifier of the entity.
      * @return Optional containing the response DTO of the found entity.
      */
+    @Cacheable(key = "#id")
     public Optional<Res> getById(ID id) {
         assert repository != null;
         assert mapper != null;
@@ -124,6 +154,10 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @return Boolean indicating the success of the deletion operation.
      */
     @Transactional
+    @CacheEvict(
+            key = "#response.id",
+            allEntries = true
+    )
     public Boolean delete(@Valid Res response) {
         assert mapper != null;
         Entity entityToDelete = mapper.toEntityFromResponse(response);

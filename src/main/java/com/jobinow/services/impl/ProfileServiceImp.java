@@ -8,6 +8,7 @@ import com.jobinow.repositories.ProfilRepository;
 import com.jobinow.services.spec.ProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -33,5 +34,6 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "profil")
 public class ProfileServiceImp extends _ServiceImp<UUID, ProfilRequest, ProfilResponse, Profil, ProfilRepository, ProfilMapper> implements ProfileService {
 }

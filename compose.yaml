@@ -8,6 +8,11 @@ services:
       - POSTGRES_USER=postgres
       - PGDATA=/data/postgres
     restart: always
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     ports:
       - "5432"
     volumes:
@@ -17,16 +22,35 @@ services:
     networks:
       - jobinow
 
-  api:
-    container_name: jobinow
+  jobinow-cache:
+    image: 'redis:latest'
+    container_name: jobinow-cache
+    hostname: redis
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "6378:6378"
+    restart: always
+    networks:
+      - jobinow
+
+  jobinow-api:
+    container_name: jobinow-api
     build:
       context: .
       dockerfile: Dockerfile
+    image: jobinow-api
     ports:
-      - "8084:8083"
+      - "8085:8084"
     depends_on:
-      - jobinow-db
-    restart: no
+      jobinow-db:
+        condition: service_healthy
+      jobinow-cache:
+        condition: service_healthy
+    restart: unless-stopped
     networks:
       - jobinow
 

@@ -8,6 +8,7 @@ import com.jobinow.repositories.TagRepository;
 import com.jobinow.services.spec.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -34,5 +35,6 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "tag")
 public class TagServiceImp extends _ServiceImp<UUID, TagRequest, TagResponse, Tag, TagRepository, TagMapper> implements TagService {
 }

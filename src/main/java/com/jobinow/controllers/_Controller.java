@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public abstract class _Controller<ID, RequestType extends _Request, ResponseType extends _Response, ServiceType extends _Service<ID, RequestType, ResponseType>> {
+public abstract class _Controller<ID, RequestType extends _Request, ResponseType extends _Response<ID>, ServiceType extends _Service<ID, RequestType, ResponseType>> {
 
     ServiceType service;
 
@@ -76,6 +77,12 @@ public abstract class _Controller<ID, RequestType extends _Request, ResponseType
     public ResponseEntity<Page<ResponseType>> getAll(Pageable pageable) {
         assert service != null;
         return ResponseEntity.ok(service.getAll(pageable));
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<List<ResponseType>> getAll() {
+        assert service != null;
+        return ResponseEntity.ok(service.getAll());
     }
 
     /**

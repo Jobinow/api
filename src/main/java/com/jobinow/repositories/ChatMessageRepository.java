@@ -14,6 +14,7 @@ import java.util.UUID;
  * chat messages by chat ID.</p>
  *
  * @version 1.0
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Repository
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, UUID> {

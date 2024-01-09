@@ -41,7 +41,7 @@ public class Apply extends AbstractEntity {
      */
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Offer Offer;
+    private Offer offer;
 
     /**
      * The type of application (online or offline ...).

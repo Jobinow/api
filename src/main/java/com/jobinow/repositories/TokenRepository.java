@@ -11,6 +11,7 @@ import java.util.UUID;
 
 /**
  * Repository interface for accessing and managing {@link Token} entities in the database.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Integer> {

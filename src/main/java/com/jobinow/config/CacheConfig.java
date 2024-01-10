@@ -2,6 +2,7 @@ package com.jobinow.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -18,7 +19,7 @@ import java.time.Duration;
  */
 @Configuration
 @EnableCaching
-public class RedisConfig {
+public class CacheConfig {
 
     @Value("${spring.data.redis.host}")
     private String redisHost;
@@ -68,5 +69,17 @@ public class RedisConfig {
                         RedisSerializationContext.SerializationPair
                                 .fromSerializer(new GenericJackson2JsonRedisSerializer())
                 );
+    }
+
+    @Bean
+    public KeyGenerator customKeyGenerator() {
+        return (target, method, params) -> {
+            StringBuilder key = new StringBuilder();
+            key.append(method.getName());
+            for (Object param : params) {
+                key.append(':').append(param.toString());
+            }
+            return key.toString();
+        };
     }
 }

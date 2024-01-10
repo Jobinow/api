@@ -52,6 +52,8 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
      * @return A list of all job applications for the specified job seeker.
      */
     public List<ApplyResponse> getAllApplies(UserResponses jobSeeker) {
-        return mapper.toResponse(repository.findAllByJobSeeker(userMapper.toEntityFromResponse(jobSeeker)));
+        return mapper.toResponse(
+                repository.findAllByJobSeeker(userMapper.toEntityFromResponse(jobSeeker))
+        );
     }
 }

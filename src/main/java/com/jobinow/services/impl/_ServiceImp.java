@@ -73,7 +73,10 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param pageable Pagination information.
      * @return Page of response DTOs.
      */
-    @Cacheable(key = "#pageable", sync = true)
+    @Cacheable(
+            sync = true,
+            key = "#pageable.pageNumber + ':' + #pageable.pageSize"
+    )
     public Page<Res> getAll(Pageable pageable) {
         assert repository != null;
         assert mapper != null;

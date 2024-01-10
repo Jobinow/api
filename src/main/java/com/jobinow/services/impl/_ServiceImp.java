@@ -58,7 +58,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      *
      * @return List of response DTOs representing all entities.
      */
-    @Cacheable
+    @Cacheable(sync = true)
     public List<Res> getAll() {
         assert repository != null;
         assert mapper != null;
@@ -73,7 +73,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param pageable Pagination information.
      * @return Page of response DTOs.
      */
-    @Cacheable(key = "#pageable")
+    @Cacheable(key = "#pageable", sync = true)
     public Page<Res> getAll(Pageable pageable) {
         assert repository != null;
         assert mapper != null;
@@ -139,7 +139,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param id Unique identifier of the entity.
      * @return Optional containing the response DTO of the found entity.
      */
-    @Cacheable(key = "#id")
+    @Cacheable(key = "#id", sync = true)
     public Optional<Res> getById(ID id) {
         assert repository != null;
         assert mapper != null;

@@ -37,7 +37,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 @Server(
                         description = "PROD ENV",
-                        url = "https://ouharri.com"
+                        url = "http://localhost:8085"
                 )
         },
         security = {

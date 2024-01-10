@@ -73,17 +73,24 @@ public abstract class _Controller<ID, RequestType extends _Request, ResponseType
      * @param pageable The pagination information.
      * @return ResponseEntity containing a page of entities.
      */
-    @GetMapping
+    @GetMapping("/paged")
     public ResponseEntity<Page<ResponseType>> getAll(Pageable pageable) {
         assert service != null;
         return ResponseEntity.ok(service.getAll(pageable));
     }
 
-    @GetMapping("/paged")
+    /**
+     * Retrieves all entities.
+     *
+     * @return ResponseEntity containing a list of entities.
+     */
+    @GetMapping
     public ResponseEntity<List<ResponseType>> getAll() {
         assert service != null;
         return ResponseEntity.ok(service.getAll());
     }
+
+
 
     /**
      * Retrieves an entity by its identifier.

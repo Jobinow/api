@@ -46,7 +46,7 @@ public class UserServiceImp implements UserService {
      * @param pageable The pagination information.
      * @return A paginated list of all users.
      */
-    @Cacheable("users")
+//    @Cacheable("users")
     public Page<UserResponses> getAllUsers(Pageable pageable) {
         return repository.findAll(pageable).map(mapper::toResponse);
     }
@@ -57,7 +57,7 @@ public class UserServiceImp implements UserService {
      * @param pageable The pagination information.
      * @return A paginated list of manager users.
      */
-    @Cacheable("managers")
+//    @Cacheable("managers")
     public Page<UserResponses> getAllManager(Pageable pageable) {
         return repository.findAllByRole(Role.MANAGER, pageable)
                 .map(mapper::toResponse);
@@ -69,7 +69,7 @@ public class UserServiceImp implements UserService {
      * @param pageable The pagination information.
      * @return A paginated list of agent users.
      */
-    @Cacheable("agents")
+//    @Cacheable("agents")
     public Page<UserResponses> getAllAgent(Pageable pageable) {
         return repository.findAllByRole(Role.AGENT, pageable)
                 .map(mapper::toResponse);
@@ -81,7 +81,7 @@ public class UserServiceImp implements UserService {
      * @param pageable The pagination information.
      * @return A paginated list of job seeker users.
      */
-    @Cacheable("jobSeekers")
+//    @Cacheable("jobSeekers")
     public Page<UserResponses> getAllJobSeeker(Pageable pageable) {
         return repository.findAllByRole(Role.JOB_SEEKER, pageable)
                 .map(mapper::toResponse);
@@ -94,7 +94,7 @@ public class UserServiceImp implements UserService {
      * @param pageable The pagination information.
      * @return A paginated list of recruiter users.
      */
-    @Cacheable("recruiters")
+//    @Cacheable("recruiters")
     public Page<UserResponses> getAllRecruiters(Pageable pageable) {
         return repository.findAllByRole(Role.RECRUITER, pageable)
                 .map(mapper::toResponse);

@@ -55,4 +55,11 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      */
     List<ApplyResponse> getAppliesByApplyType(OfferResponse offerResponse, ApplyType applyType);
 
+    /**
+     * Retrieves a list of all job applications for the specified job offer.
+     *
+     * @param offerResponse The job offer for which to retrieve applications.
+     * @return A list of all job applications for the specified job offer.
+     */
+    List<ApplyResponse> getOfferApplies(OfferResponse offerResponse);
 }

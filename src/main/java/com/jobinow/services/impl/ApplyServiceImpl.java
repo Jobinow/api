@@ -2,9 +2,13 @@ package com.jobinow.services.impl;
 
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
+import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Apply;
+import com.jobinow.model.entities.Offer;
+import com.jobinow.model.enums.ApplyType;
 import com.jobinow.model.mapper.ApplyMapper;
+import com.jobinow.model.mapper.OfferMapper;
 import com.jobinow.model.mapper.UserMapper;
 import com.jobinow.repositories.ApplyRepository;
 import com.jobinow.services.spec.ApplyService;
@@ -29,6 +33,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyResponse, Apply, ApplyRepository, ApplyMapper> implements ApplyService {
     private final UserMapper userMapper;
+    private final OfferMapper offerMapper;
 
     /**
      * Retrieves a paginated list of all job applications for the specified job seeker.
@@ -54,6 +59,23 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
     public List<ApplyResponse> getAllApplies(UserResponses jobSeeker) {
         return mapper.toResponse(
                 repository.findAllByJobSeeker(userMapper.toEntityFromResponse(jobSeeker))
+        );
+    }
+
+    /**
+     * Retrieves a list of all job applications for the specified job offer filtered by application type.
+     *
+     * @param offerResponse The job offer for which to retrieve applications.
+     * @param applyType application type to use in filtration
+     * @return A list of all job applications for the specified job offer.
+     */
+    @Override
+    public List<ApplyResponse> getAppliesByApplyType(OfferResponse offerResponse, ApplyType applyType) {
+        return mapper.toResponse(
+                repository.getAppliesByOfferAndApplyType(
+                        offerMapper.toEntityFromResponse(offerResponse),
+                        applyType
+                )
         );
     }
 }

@@ -2,7 +2,12 @@ package com.jobinow.services.spec;
 
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
+import com.jobinow.model.dto.responses.UserResponses;
+import com.jobinow.model.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,4 +26,20 @@ import java.util.UUID;
  * @see _Service
  */
 public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse> {
+    /**
+     * Retrieves a paginated list of all job applications for the specified job seeker.
+     *
+     * @param jobSeeker The job seeker for which to retrieve applications.
+     * @param pageable  The pagination information.
+     * @return A paginated list of all job applications for the specified job seeker.
+     */
+    Page<ApplyResponse> getAllApplies(UserResponses jobSeeker, Pageable pageable);
+
+    /**
+     * Retrieves a list of all job applications for the specified job seeker.
+     *
+     * @param jobSeeker The job seeker for which to retrieve applications.
+     * @return A list of all job applications for the specified job seeker.
+     */
+    List<ApplyResponse> getAllApplies(UserResponses jobSeeker);
 }

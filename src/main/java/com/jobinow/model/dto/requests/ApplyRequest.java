@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public record ApplyRequest(
         UserResponses jobSeeker,
-        OfferResponse Offer,
+        OfferResponse offer,
         Set<AttachmentRequest> attachmentUrls
 ) implements _Request {
 }

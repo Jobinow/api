@@ -78,4 +78,19 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
                 )
         );
     }
+
+    /**
+     * Retrieves a list of all job applications for the specified job offer.
+     *
+     * @param offerResponse The job offer for which to retrieve applications.
+     * @return A list of all job applications for the specified job offer.
+     */
+    @Override
+    public List<ApplyResponse> getOfferApplies(OfferResponse offerResponse) {
+        return mapper.toResponse(
+                repository.getAppliesByOffer(
+                        offerMapper.toEntityFromResponse(offerResponse)
+                )
+        );
+    }
 }

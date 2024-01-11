@@ -39,8 +39,8 @@ public class ApplyController extends _Controller<UUID, ApplyRequest, ApplyRespon
         );
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<ApplyResponse>> getFilteredApplies(@RequestBody @Valid OfferResponse offerResponse, @PathParam(value = "applyType") ApplyType applyType) {
+    @PostMapping("/filter")
+    public ResponseEntity<List<ApplyResponse>> getFilteredApplies(@RequestBody OfferResponse offerResponse, @RequestParam ApplyType applyType) {
         return ResponseEntity.ok(
                 this.service.getAppliesByApplyType(offerResponse, applyType)
         );

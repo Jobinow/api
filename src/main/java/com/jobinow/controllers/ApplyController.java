@@ -7,7 +7,6 @@ import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.enums.ApplyType;
 import com.jobinow.services.spec.ApplyService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -43,6 +42,13 @@ public class ApplyController extends _Controller<UUID, ApplyRequest, ApplyRespon
     public ResponseEntity<List<ApplyResponse>> getFilteredApplies(@RequestBody OfferResponse offerResponse, @RequestParam ApplyType applyType) {
         return ResponseEntity.ok(
                 this.service.getAppliesByApplyType(offerResponse, applyType)
+        );
+    }
+
+    @PostMapping("/offer")
+    public ResponseEntity<List<ApplyResponse>> getOfferApplies(@RequestBody OfferResponse offerResponse) {
+        return ResponseEntity.ok(
+                this.service.getOfferApplies(offerResponse)
         );
     }
 }

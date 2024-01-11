@@ -7,6 +7,8 @@ import com.jobinow.model.enums.ApplyType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,4 +33,13 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
      * @return list containing applies filtered by apply_type
      */
     List<Apply> getAppliesByOfferAndApplyType(Offer offer, ApplyType applyType);
+
+
+    /**
+     * Retrieves applies of an offer
+     *
+     * @param offer created by current authenticated recruiter
+     * @return list containing applies filtered by apply_type
+     */
+    List<Apply> getAppliesByOffer(Offer offer);
 }

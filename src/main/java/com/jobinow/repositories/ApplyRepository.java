@@ -1,7 +1,9 @@
 package com.jobinow.repositories;
 
 import com.jobinow.model.entities.Apply;
+import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.ApplyType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +23,12 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
     Page<Apply> findAllByJobSeeker(User jobSeeker, Pageable pageable);
 
     List<Apply> findAllByJobSeeker(User jobSeeker);
+
+    /**
+     * Retrieves applies of an offer filtered by apply type (is online of offline)
+     *
+     * @param offer created by current authenticated recruiter
+     * @return list containing applies filtered by apply_type
+     */
+    List<Apply> getAppliesByOfferAndApplyType(Offer offer, ApplyType applyType);
 }

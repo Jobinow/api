@@ -12,7 +12,6 @@ import com.stripe.model.Charge;
  * @author <a href="mailto:ouharrioutman@gmail.com">Ouharri Outman</a>
  */
 public interface StripeService {
-
     /**
      * Charges a user based on the provided ChargeRequest.
      *

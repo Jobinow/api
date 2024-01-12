@@ -1,5 +1,6 @@
 package com.jobinow.exceptions;
 
+import com.stripe.exception.StripeException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.persistence.EntityNotFoundException;
@@ -163,6 +164,24 @@ public class GlobalExceptionHandler {
                 List.of(ex.getLocalizedMessage())
         );
         log.error("Handling Authentication exception", ex);
+        return buildResponseEntity(apiError);
+    }
+
+    /**
+     * Handle exceptions related to Stripe processing (e.g., StripeException).
+     *
+     * @param ex The StripeException instance.
+     * @return ResponseEntity with the appropriate API error.
+     */
+    @ExceptionHandler(StripeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiErrorFactory> handleStripeException(StripeException ex) {
+        ApiErrorFactory apiError = new ApiErrorFactory(
+                HttpStatus.BAD_REQUEST,
+                List.of(ex.getMessage()),
+                ex
+        );
+        log.error("Handling StripeException", ex);
         return buildResponseEntity(apiError);
     }
 

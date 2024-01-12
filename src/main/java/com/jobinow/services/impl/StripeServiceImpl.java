@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
 public class StripeServiceImpl implements StripeService {
     /**
      * The secret key for authenticating with the Stripe API.

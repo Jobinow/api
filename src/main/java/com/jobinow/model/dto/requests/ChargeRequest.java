@@ -13,5 +13,5 @@ public record ChargeRequest(
         Currency currency,
 
         String stripeToken
-)implements _Request {
+) implements _Request {
 }

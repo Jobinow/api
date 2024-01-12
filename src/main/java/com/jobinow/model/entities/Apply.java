@@ -1,5 +1,6 @@
 package com.jobinow.model.entities;
 
+import com.jobinow.model.enums.ApplyStatus;
 import com.jobinow.model.enums.ApplyType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Apply extends AbstractEntity {
+    /**
+     * Application status.
+     */
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    private ApplyStatus status;
 
     /**
      * The job seeker who submitted the application.
@@ -59,4 +66,9 @@ public class Apply extends AbstractEntity {
             orphanRemoval = true
     )
     private Set<Attachment> resumePdfs;
+
+    @PrePersist
+    private void isStatusNull() {
+        if (status == null) this.status = ApplyStatus.PENDING;
+    }
 }

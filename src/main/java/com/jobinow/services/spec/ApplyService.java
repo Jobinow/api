@@ -2,8 +2,11 @@ package com.jobinow.services.spec;
 
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
+import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
+import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.ApplyType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -42,4 +45,21 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      * @return A list of all job applications for the specified job seeker.
      */
     List<ApplyResponse> getAllApplies(UserResponses jobSeeker);
+
+    /**
+     * Retrieves a list of all job applications for the specified job offer filtered by application type.
+     *
+     * @param offerResponse The job offer for which to retrieve applications.
+     * @param applyType application type to use in filtration
+     * @return A list of all job applications for the specified job offer.
+     */
+    List<ApplyResponse> getAppliesByApplyType(OfferResponse offerResponse, ApplyType applyType);
+
+    /**
+     * Retrieves a list of all job applications for the specified job offer.
+     *
+     * @param offerResponse The job offer for which to retrieve applications.
+     * @return A list of all job applications for the specified job offer.
+     */
+    List<ApplyResponse> getOfferApplies(OfferResponse offerResponse);
 }

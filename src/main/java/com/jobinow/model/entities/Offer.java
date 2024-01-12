@@ -82,7 +82,7 @@ public class Offer extends AbstractEntity {
     /**
      * The recruiter associated with the job offer.
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
     @NotNull(message = "recruiter cannot be null")
     private User recruiter;

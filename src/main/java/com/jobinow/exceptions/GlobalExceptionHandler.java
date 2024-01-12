@@ -41,8 +41,8 @@ public class GlobalExceptionHandler {
     /**
      * Handle HttpMessageNotReadableException and return a proper API error response.
      */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ApiErrorFactory> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex) {
         ApiErrorFactory apiError = new ApiErrorFactory(

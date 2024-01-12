@@ -24,7 +24,6 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class StripeServiceImpl implements StripeService {
-
     /**
      * The secret key for authenticating with the Stripe API.
      */

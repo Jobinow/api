@@ -1,15 +1,19 @@
 package com.jobinow.repositories;
 
+import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.entities.Apply;
 import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.ApplyStatus;
 import com.jobinow.model.enums.ApplyType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,4 +46,17 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
      * @return list containing applies filtered by apply_type
      */
     List<Apply> getAppliesByOffer(Offer offer);
+
+    /**
+     * Update candidate application status to be seen, accepted or refused.
+     *
+     * @param apply The application to be updated.
+     * @return updated application.
+     */
+
+    @Modifying
+    @Transactional
+    @Query("update Apply a set a.status = :status where a.id = :id")
+    void updateApplyStatus(@Param("status") ApplyStatus status, @Param("id") UUID id);
+
 }

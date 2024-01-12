@@ -4,6 +4,7 @@ import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
+import com.jobinow.model.entities.Apply;
 import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.ApplyType;
@@ -62,4 +63,12 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      * @return A list of all job applications for the specified job offer.
      */
     List<ApplyResponse> getOfferApplies(OfferResponse offerResponse);
+
+    /**
+     * Update candidate application status to be seen, accepted or refused.
+     *
+     * @param applyResponse The application to be updated.
+     * @return updated application.
+     */
+    void updateApplyStatus(ApplyResponse applyResponse, String status);
 }

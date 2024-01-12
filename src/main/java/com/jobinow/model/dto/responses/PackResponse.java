@@ -27,13 +27,18 @@ import org.hibernate.validator.constraints.URL;
 public class PackResponse extends AbstractResponse {
     @NotBlank(message = "Title is required")
     String title;
+
     @NotBlank(message = "Description is required")
     String description;
+
     @Positive(message = "Price must be positive")
     double price;
+
     @Min(message = "Number of offers must be at least 0", value = 0)
     int nbOffers;
+
     boolean unlimitedOffers;
+
     @URL(message = "Image URL must be valid")
     String image;
 }

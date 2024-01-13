@@ -4,6 +4,7 @@ import com.jobinow.model.dto.requests.SubscriptionRequest;
 import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.User;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -29,5 +30,5 @@ public interface SubscriptionService extends _Service<UUID, SubscriptionRequest,
      * @param recruiter The recruiter to search by.
      * @return The subscription found.
      */
-    SubscriptionResponse findByRecruiter(User recruiter);
+    Optional<SubscriptionResponse> findByRecruiter(User recruiter);
 }

@@ -3,10 +3,7 @@ package com.jobinow.model.mapper;
 import com.jobinow.model.dto.requests.SubscriptionRequest;
 import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.Subscription;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.UUID;
 
@@ -19,5 +16,16 @@ import java.util.UUID;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         componentModel = MappingConstants.ComponentModel.SPRING
 )
-public interface SubscriptionMapper extends _Mapper<UUID, SubscriptionRequest, SubscriptionResponse, Subscription>{
+public interface SubscriptionMapper extends _Mapper<UUID, SubscriptionRequest, SubscriptionResponse, Subscription> {
+    @Override
+    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    Subscription toEntityFromRequest(SubscriptionRequest request);
+
+    @Override
+    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    Subscription toEntityFromResponse(SubscriptionResponse response);
+
+    @Override
+    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    SubscriptionResponse toResponse(Subscription entity);
 }

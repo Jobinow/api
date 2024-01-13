@@ -68,7 +68,6 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      * Update candidate application status to be seen, accepted or refused.
      *
      * @param applyResponse The application to be updated.
-     * @return updated application.
      */
-    void updateApplyStatus(String applyId, String status);
+    void updateApplyStatus(String applyId, ApplyResponse applyResponse);
 }

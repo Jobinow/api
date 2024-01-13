@@ -99,18 +99,23 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
     /**
      * Update candidate application status to be seen, accepted or refused.
      *
-     * @param applyResponse The application to be updated.
-     * @return updated application.
+     * @param applyId The application to be updated.
      */
-    public void updateApplyStatus(ApplyResponse applyResponse, String status) {
+    @Override
+    public void updateApplyStatus(String applyId, String status) {
         repository.updateApplyStatus(
                 this.toApplyStatusFromString(status),
-                applyResponse.getId()
+                this.toUuidFromString(applyId)
         );
     }
 
     private ApplyStatus toApplyStatusFromString(String status) {
         try { return ApplyStatus.valueOf(status); }
         catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid application status ['ACCEPTED, 'REFUSED', 'SEEN']"); }
+    }
+
+    private UUID toUuidFromString(String stringId) {
+        try { return UUID.fromString(stringId); }
+        catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid UUID format"); }
     }
 }

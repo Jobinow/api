@@ -70,5 +70,5 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      * @param applyResponse The application to be updated.
      * @return updated application.
      */
-    void updateApplyStatus(ApplyResponse applyResponse, String status);
+    void updateApplyStatus(String applyId, String status);
 }

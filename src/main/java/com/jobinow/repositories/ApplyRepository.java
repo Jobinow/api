@@ -38,7 +38,6 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
      */
     List<Apply> getAppliesByOfferAndApplyType(Offer offer, ApplyType applyType);
 
-
     /**
      * Retrieves applies of an offer
      *
@@ -50,13 +49,9 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
     /**
      * Update candidate application status to be seen, accepted or refused.
      *
-     * @param apply The application to be updated.
-     * @return updated application.
+     * @param status The application to be updated.
      */
-
     @Modifying
-    @Transactional
     @Query("update Apply a set a.status = :status where a.id = :id")
     void updateApplyStatus(@Param("status") ApplyStatus status, @Param("id") UUID id);
-
 }

@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -83,7 +86,10 @@ public class Offer extends AbstractEntity {
      * The recruiter associated with the job offer.
      */
     @ManyToOne
-    @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
+    @JoinColumn(
+            name = "recruiter_id",
+            referencedColumnName = "id"
+    )
     @NotNull(message = "recruiter cannot be null")
     private User recruiter;
 

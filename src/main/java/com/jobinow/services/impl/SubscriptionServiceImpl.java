@@ -47,14 +47,15 @@ public class SubscriptionServiceImpl extends _ServiceImp<UUID, SubscriptionReque
      * @return The subscription found.
      */
     public Optional<SubscriptionResponse> findByRecruiter(User recruiter) {
-        return Optional.of(
-                mapper.toResponse(
-                        repository.findFirstByRecruiterAndStatusOrderByCreatedAtDesc(
-                                        recruiter,
-                                        SubscriptionStatus.ACTIVE
-                                )
-                                .orElse(null)
-                )
+        SubscriptionResponse subscriptionResponse = mapper.toResponse(
+                repository.findFirstByRecruiterAndStatusOrderByCreatedAtDesc(
+                                recruiter,
+                                SubscriptionStatus.ACTIVE
+                        )
+                        .orElse(null)
         );
+        return subscriptionResponse == null ?
+                Optional.empty() :
+                Optional.of(subscriptionResponse);
     }
 }

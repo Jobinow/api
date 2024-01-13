@@ -2,8 +2,11 @@ package com.jobinow.services.impl;
 
 import com.jobinow.model.dto.requests.OfferRequest;
 import com.jobinow.model.dto.responses.OfferResponse;
+import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.Offer;
+import com.jobinow.model.entities.User;
 import com.jobinow.model.mapper.OfferMapper;
+import com.jobinow.model.mapper.UserMapper;
 import com.jobinow.repositories.OfferRepository;
 import com.jobinow.services.spec.OfferService;
 import com.jobinow.services.spec.SubscriptionService;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -38,5 +42,60 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "offer")
 public class OfferServiceImp extends _ServiceImp<UUID, OfferRequest, OfferResponse, Offer, OfferRepository, OfferMapper> implements OfferService {
+    private final UserMapper userMapper;
     private final SubscriptionService subscriptionService;
+
+    /**
+     * Creates a new job offer with additional logic to check the recruiter's subscription limits
+     * and the maximum number of allowed offers.
+     *
+     * @param request The {@link OfferRequest} containing details for the offer creation.
+     * @return An {@link Optional} containing the created {@link OfferResponse} if successful,
+     * or an empty {@link Optional} if the creation is not allowed based on the specified conditions.
+     */
+    @Override
+    public Optional<OfferResponse> create(OfferRequest request) {
+        User recruiter = userMapper.toEntityFromResponse(request.recruiter());
+        Optional<SubscriptionResponse> subscription = subscriptionService.findByRecruiter(recruiter);
+
+        if (subscription.isPresent()) {
+            if (subscription.get().getPack().isUnlimitedOffers() || canCreateMoreOffers(subscription, recruiter)) {
+                return super.create(request);
+            } else {
+                log.error("The recruiter {} has reached the maximum number of offers allowed", recruiter.getId());
+                // TODO: throw a new exception for not allowed to create more offers
+                return Optional.empty();
+            }
+        } else {
+            if (canCreateMoreOffersWithoutSubscription(recruiter)) {
+                return super.create(request);
+            } else {
+                log.error("The recruiter {} has reached the maximum number of offers allowed", recruiter.getId());
+                // TODO: throw a new exception for not allowed to create more offers
+                return Optional.empty();
+            }
+        }
+    }
+
+    /**
+     * Checks if the recruiter can create more offers based on the subscription limits.
+     *
+     * @param subscription The {@link SubscriptionResponse} representing the recruiter's subscription.
+     * @param recruiter    The {@link User} representing the recruiter.
+     * @return {@code true} if the recruiter can create more offers, {@code false} otherwise.
+     */
+    private boolean canCreateMoreOffers(Optional<SubscriptionResponse> subscription, User recruiter) {
+        return repository.countAllByRecruiter(recruiter) < subscription.get().getPack().getNbOffers();
+    }
+
+    /**
+     * Checks if the recruiter can create more offers without an active subscription.
+     *
+     * @param recruiter The {@link User} representing the recruiter.
+     * @return {@code true} if the recruiter can create more offers, {@code false} otherwise.
+     */
+    private boolean canCreateMoreOffersWithoutSubscription(User recruiter) {
+        return repository.countAllByRecruiter(recruiter) < 3;
+    }
+
 }

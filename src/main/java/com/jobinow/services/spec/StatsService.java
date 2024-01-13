@@ -1,7 +1,6 @@
 package com.jobinow.services.spec;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Service interface for calculating and providing statistical information related to job offers and applications.
@@ -22,14 +21,14 @@ public interface StatsService {
      *
      * @return A map associating the offer ID with the number of applications.
      */
-    Map<UUID, Long> calculateApplicationsPerOffer();
+    Map<Object, Long> calculateApplicationsPerOffer();
 
     /**
      * Calculate statistics for the number of job offers per candidate.
      *
      * @return A map associating the candidate ID with the number of job offers.
      */
-    Map<UUID, Long> calculateOffersPerCandidate();
+    Map<Object, Long> calculateOffersPerCandidate();
 
     /**
      * Calculate general statistics on job offers.

@@ -1,6 +1,5 @@
 package com.jobinow.model.dto.requests;
 
-import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.Pack;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +27,7 @@ public record PackRequest(
 
         boolean unlimitedOffers,
 
-        @URL(message = "Image URL must be valid") String image
+        @URL(message = "Image URL must be valid")
+        String image
 ) implements _Request {
 }

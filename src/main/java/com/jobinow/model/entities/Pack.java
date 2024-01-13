@@ -1,5 +1,6 @@
 package com.jobinow.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -48,7 +49,8 @@ public class Pack extends AbstractEntity {
     /**
      * Indicates whether the subscription pack has unlimited offers.
      */
-    private boolean unlimitedOffers;
+    @Column(columnDefinition = "boolean default false")
+    private boolean unlimitedOffers = false;
 
     /**
      * The URL of the image associated with the subscription pack.

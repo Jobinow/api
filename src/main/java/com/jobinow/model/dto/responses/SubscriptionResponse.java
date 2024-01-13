@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SubscriptionDto extends AbstractResponse {
+public class SubscriptionResponse extends AbstractResponse {
     PackResponse pack;
     UserResponses jobSeeker;
 }

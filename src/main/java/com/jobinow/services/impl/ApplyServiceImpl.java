@@ -102,9 +102,9 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
      * @param applyId The application to be updated.
      */
     @Override
-    public void updateApplyStatus(String applyId, String status) {
+    public void updateApplyStatus(String applyId, ApplyResponse applyResponse) {
         repository.updateApplyStatus(
-                this.toApplyStatusFromString(status),
+                applyResponse.getStatus(),
                 this.toUuidFromString(applyId)
         );
     }

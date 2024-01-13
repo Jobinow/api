@@ -18,14 +18,14 @@ import java.util.UUID;
 )
 public interface SubscriptionMapper extends _Mapper<UUID, SubscriptionRequest, SubscriptionResponse, Subscription> {
     @Override
-    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    @Mapping(target = "recruiter", source = "recruiter")
     Subscription toEntityFromRequest(SubscriptionRequest request);
 
     @Override
-    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    @Mapping(target = "recruiter", source = "recruiter")
     Subscription toEntityFromResponse(SubscriptionResponse response);
 
     @Override
-    @Mapping(target = "jobSeeker", source = "jobSeeker")
+    @Mapping(target = "recruiter", source = "recruiter")
     SubscriptionResponse toResponse(Subscription entity);
 }

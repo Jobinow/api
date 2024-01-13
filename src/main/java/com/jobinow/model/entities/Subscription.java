@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Entity class representing a subscription made by a job seeker to a specific pack.
+ * Entity class representing a subscription made by a recruiter to a specific pack.
  */
 @Getter
 @Setter
@@ -28,13 +28,13 @@ public class Subscription extends AbstractEntity {
     private Pack pack;
 
     /**
-     * The job seeker who made the subscription.
+     * The recruiter who made the subscription.
      */
     @ManyToOne(
             fetch = FetchType.LAZY,
             targetEntity = User.class
     )
-    private User jobSeeker;
+    private User recruiter;
 
     /**
      * The status of the subscription, indicating whether it is active or terminated.

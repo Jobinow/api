@@ -3,7 +3,6 @@ package com.jobinow.model.dto.requests;
 import com.jobinow.model.dto.responses.PackResponse;
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Subscription;
-import com.jobinow.model.entities.Tag;
 import jakarta.validation.constraints.NotNull;
 
 /**

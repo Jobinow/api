@@ -6,6 +6,7 @@ import com.jobinow.model.entities.Offer;
 import com.jobinow.model.mapper.OfferMapper;
 import com.jobinow.repositories.OfferRepository;
 import com.jobinow.services.spec.OfferService;
+import com.jobinow.services.spec.SubscriptionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
@@ -37,4 +38,5 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "offer")
 public class OfferServiceImp extends _ServiceImp<UUID, OfferRequest, OfferResponse, Offer, OfferRepository, OfferMapper> implements OfferService {
+    private final SubscriptionService subscriptionService;
 }

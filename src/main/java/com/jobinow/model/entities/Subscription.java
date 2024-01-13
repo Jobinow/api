@@ -1,6 +1,5 @@
 package com.jobinow.model.entities;
 
-
 import com.jobinow.model.enums.SubscriptionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

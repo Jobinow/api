@@ -52,9 +52,9 @@ public class ApplyController extends _Controller<UUID, ApplyRequest, ApplyRespon
         );
     }
 
-    @PatchMapping
-    public ResponseEntity<String> updateApplyStatus(@RequestBody String applyId, @RequestParam String status) {
-        this.service.updateApplyStatus(applyId, status);
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateApplyStatus(@PathVariable String id, @RequestBody ApplyResponse applyResponse) {
+        this.service.updateApplyStatus(id, applyResponse);
         return ResponseEntity.ok(
                 "Apply status updated successfully"
         );

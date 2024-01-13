@@ -4,6 +4,7 @@ import com.jobinow.model.dto.requests.SubscriptionRequest;
 import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.Subscription;
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.SubscriptionStatus;
 import com.jobinow.model.mapper.SubscriptionMapper;
 import com.jobinow.repositories.SubscriptionRepository;
 import com.jobinow.services.spec.SubscriptionService;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -37,13 +39,22 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "Subscription")
 public class SubscriptionServiceImpl extends _ServiceImp<UUID, SubscriptionRequest, SubscriptionResponse, Subscription, SubscriptionRepository, SubscriptionMapper> implements SubscriptionService {
+
     /**
      * Finds a subscription by the recruiter.
      *
      * @param recruiter The recruiter to search by.
      * @return The subscription found.
      */
-    public SubscriptionResponse findByRecruiter(User recruiter) {
-        return null;
+    public Optional<SubscriptionResponse> findByRecruiter(User recruiter) {
+        return Optional.of(
+                mapper.toResponse(
+                        repository.findFirstByRecruiterAndStatusOrderByCreatedAtDesc(
+                                        recruiter,
+                                        SubscriptionStatus.ACTIVE
+                                )
+                                .orElse(null)
+                )
+        );
     }
 }

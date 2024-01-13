@@ -31,8 +31,8 @@ import java.util.UUID;
  * @see _ServiceImp
  */
 @Service
-@CacheConfig(cacheNames = "apply")
 @AllArgsConstructor
+@CacheConfig(cacheNames = "apply")
 public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyResponse, Apply, ApplyRepository, ApplyMapper> implements ApplyService {
     private final UserMapper userMapper;
     private final OfferMapper offerMapper;

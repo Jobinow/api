@@ -67,6 +67,9 @@ public class Apply extends AbstractEntity {
     )
     private Set<Attachment> resumePdfs;
 
+    /**
+     * Ensures that the status is set to PENDING before persisting if it is null.
+     */
     @PrePersist
     private void isStatusNull() {
         if (status == null) this.status = ApplyStatus.PENDING;

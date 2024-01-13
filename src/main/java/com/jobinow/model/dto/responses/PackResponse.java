@@ -37,7 +37,7 @@ public class PackResponse extends AbstractResponse {
     @Min(message = "Number of offers must be at least 0", value = 0)
     int nbOffers;
 
-    boolean unlimitedOffers;
+    boolean unlimitedOffers = false;
 
     @URL(message = "Image URL must be valid")
     String image;

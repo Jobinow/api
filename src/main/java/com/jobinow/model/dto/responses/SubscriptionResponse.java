@@ -22,5 +22,5 @@ import lombok.experimental.SuperBuilder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SubscriptionResponse extends AbstractResponse {
     PackResponse pack;
-    UserResponses jobSeeker;
+    UserResponses recruiter;
 }

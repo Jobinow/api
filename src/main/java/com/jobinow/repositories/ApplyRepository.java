@@ -52,6 +52,7 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
      * @param status The application to be updated.
      */
     @Modifying
+    @Transactional
     @Query("update Apply a set a.status = :status where a.id = :id")
     void updateApplyStatus(@Param("status") ApplyStatus status, @Param("id") UUID id);
 }

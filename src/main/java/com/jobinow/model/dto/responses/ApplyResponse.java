@@ -2,6 +2,7 @@ package com.jobinow.model.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jobinow.model.entities.Apply;
+import com.jobinow.model.enums.ApplyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,5 @@ public class ApplyResponse extends AbstractResponse {
     OfferResponse offer;
 
     Set<AttachmentResponse> resumePdfs;
+    ApplyStatus status;
 }

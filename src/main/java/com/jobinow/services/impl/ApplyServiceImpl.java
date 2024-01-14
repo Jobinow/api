@@ -1,11 +1,13 @@
 package com.jobinow.services.impl;
 
+import com.jobinow.exceptions.ResourceException;
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Apply;
 import com.jobinow.model.entities.Offer;
+import com.jobinow.model.enums.ApplyStatus;
 import com.jobinow.model.enums.ApplyType;
 import com.jobinow.model.mapper.ApplyMapper;
 import com.jobinow.model.mapper.OfferMapper;
@@ -92,5 +94,28 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
                         offerMapper.toEntityFromResponse(offerResponse)
                 )
         );
+    }
+
+    /**
+     * Update candidate application status to be seen, accepted or refused.
+     *
+     * @param applyId The application to be updated.
+     */
+    @Override
+    public void updateApplyStatus(String applyId, ApplyResponse applyResponse) {
+        repository.updateApplyStatus(
+                applyResponse.getStatus(),
+                this.toUuidFromString(applyId)
+        );
+    }
+
+    private ApplyStatus toApplyStatusFromString(String status) {
+        try { return ApplyStatus.valueOf(status); }
+        catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid application status ['ACCEPTED, 'REFUSED', 'SEEN']"); }
+    }
+
+    private UUID toUuidFromString(String stringId) {
+        try { return UUID.fromString(stringId); }
+        catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid UUID format"); }
     }
 }

@@ -1,12 +1,12 @@
 package com.jobinow.services.impl;
 
 import com.jobinow.exceptions.ResourceException;
+import com.jobinow.model.dto.basic.ApplicationStatistics;
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Apply;
-import com.jobinow.model.entities.Offer;
 import com.jobinow.model.enums.ApplyStatus;
 import com.jobinow.model.enums.ApplyType;
 import com.jobinow.model.mapper.ApplyMapper;
@@ -108,6 +108,20 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
                 this.toUuidFromString(applyId)
         );
     }
+
+    /**
+     * Retrieve a list of type Object[] from the repository query method, then it cast it to a list of type ApplicationStatistics (using custom constructor)
+     * @param applyId The application id which needs statistics.
+     * @return list of ApplicationStatistics;
+     */
+    @Override
+    public List<ApplicationStatistics> getApplicationStatistics(String applyId) {
+        List<Object[]> plainApplicationStatistics = repository.getApplicationStatistics(this.toUuidFromString(applyId));
+        return plainApplicationStatistics.stream()
+                .map(ApplicationStatistics::new)
+                .toList();
+    }
+
 
     private ApplyStatus toApplyStatusFromString(String status) {
         try { return ApplyStatus.valueOf(status); }

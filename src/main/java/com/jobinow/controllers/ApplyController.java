@@ -51,4 +51,12 @@ public class ApplyController extends _Controller<UUID, ApplyRequest, ApplyRespon
                 this.service.getOfferApplies(offerResponse)
         );
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateApplyStatus(@PathVariable String id, @RequestBody ApplyResponse applyResponse) {
+        this.service.updateApplyStatus(id, applyResponse);
+        return ResponseEntity.ok(
+                "Apply status updated successfully"
+        );
+    }
 }

@@ -1,6 +1,5 @@
 package com.jobinow.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +20,6 @@ import java.time.Duration;
 @EnableCaching
 public class CacheConfig {
 
-    @Value("${spring.data.redis.host}")
-    private String redisHost;
-
-    @Value("${spring.data.redis.port}")
-    private int redisPort;
-
     /**
      * Bean definition for the LettuceConnectionFactory, which is responsible for connecting to the Redis server.
      *
@@ -34,7 +27,7 @@ public class CacheConfig {
      */
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(redisHost, redisPort);
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
 
         return new LettuceConnectionFactory(configuration);
     }

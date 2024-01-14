@@ -122,12 +122,6 @@ public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyRespo
                 .toList();
     }
 
-
-    private ApplyStatus toApplyStatusFromString(String status) {
-        try { return ApplyStatus.valueOf(status); }
-        catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid application status ['ACCEPTED, 'REFUSED', 'SEEN']"); }
-    }
-
     private UUID toUuidFromString(String stringId) {
         try { return UUID.fromString(stringId); }
         catch (IllegalArgumentException e) { throw new ResourceException("Please enter a valid UUID format"); }

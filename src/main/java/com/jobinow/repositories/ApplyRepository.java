@@ -1,6 +1,5 @@
 package com.jobinow.repositories;
 
-import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.entities.Apply;
 import com.jobinow.model.entities.Offer;
 import com.jobinow.model.entities.User;
@@ -55,4 +54,13 @@ public interface ApplyRepository extends JpaRepository<Apply, UUID> {
     @Transactional
     @Query("update Apply a set a.status = :status where a.id = :id")
     void updateApplyStatus(@Param("status") ApplyStatus status, @Param("id") UUID id);
+
+    /**
+     * retrieve statistics about job applications for a certain offer (application date and applications count).
+     *
+     * @param offerId The application id which needs statistics.
+     * @return list of ApplicationStatistics;
+     */
+    @Query("SELECT COUNT(a), FUNCTION('DATE', a.createdAt) AS applicationDate FROM Apply a WHERE a.offer.id = :offerId GROUP BY FUNCTION('DATE', a.createdAt)")
+    List<Object[]> getApplicationStatistics(@Param("offerId") UUID offerId);
 }

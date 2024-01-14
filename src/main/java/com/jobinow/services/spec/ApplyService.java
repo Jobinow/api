@@ -1,12 +1,10 @@
 package com.jobinow.services.spec;
 
+import com.jobinow.model.dto.basic.ApplicationStatistics;
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.UserResponses;
-import com.jobinow.model.entities.Apply;
-import com.jobinow.model.entities.Offer;
-import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.ApplyType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -70,4 +68,12 @@ public interface ApplyService extends _Service<UUID, ApplyRequest, ApplyResponse
      * @param applyResponse The application to be updated.
      */
     void updateApplyStatus(String applyId, ApplyResponse applyResponse);
+
+    /**
+     * retrieve statistics about job applications for a certain offer (application date and applications count).
+     *
+     * @param applyId The application id which needs statistics.
+     * @return list of ApplicationStatistics;
+     */
+    List<ApplicationStatistics> getApplicationStatistics(String applyId);
 }

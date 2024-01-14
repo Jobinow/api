@@ -1,5 +1,6 @@
 package com.jobinow.controllers;
 
+import com.jobinow.model.dto.basic.ApplicationStatistics;
 import com.jobinow.model.dto.requests.ApplyRequest;
 import com.jobinow.model.dto.responses.ApplyResponse;
 import com.jobinow.model.dto.responses.OfferResponse;
@@ -58,5 +59,10 @@ public class ApplyController extends _Controller<UUID, ApplyRequest, ApplyRespon
         return ResponseEntity.ok(
                 "Apply status updated successfully"
         );
+    }
+
+    @GetMapping("/statistics/{id}")
+    public ResponseEntity<List<ApplicationStatistics>> getApplicationStatistics(@PathVariable String id) {
+        return ResponseEntity.ok(this.service.getApplicationStatistics(id));
     }
 }

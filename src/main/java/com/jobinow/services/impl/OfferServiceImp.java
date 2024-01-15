@@ -1,5 +1,6 @@
 package com.jobinow.services.impl;
 
+import com.jobinow.exceptions.NotAllowedToCreateOfferException;
 import com.jobinow.model.dto.requests.OfferRequest;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.SubscriptionResponse;
@@ -63,16 +64,14 @@ public class OfferServiceImp extends _ServiceImp<UUID, OfferRequest, OfferRespon
                 return super.create(request);
             } else {
                 log.error("The recruiter {} has reached the maximum number of offers allowed", recruiter.getId());
-                // TODO: throw a new exception for not allowed to create more offers
-                return Optional.empty();
+                throw new NotAllowedToCreateOfferException();
             }
         } else {
             if (canCreateMoreOffersWithoutSubscription(recruiter)) {
                 return super.create(request);
             } else {
                 log.error("The recruiter {} has reached the maximum number of offers allowed", recruiter.getId());
-                // TODO: throw a new exception for not allowed to create more offers
-                return Optional.empty();
+                throw new NotAllowedToCreateOfferException();
             }
         }
     }

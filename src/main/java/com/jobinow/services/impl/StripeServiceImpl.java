@@ -1,12 +1,12 @@
 package com.jobinow.services.impl;
 
+import com.jobinow.exceptions.StripeCustomException;
 import com.jobinow.model.dto.requests.ChargeRequest;
 import com.jobinow.services.spec.StripeService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import jakarta.annotation.PostConstruct;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class StripeServiceImpl implements StripeService {
      * @return The {@link Charge} object representing the result of the charge operation.
      * @throws StripeException If an error occurs during the Stripe API call.
      */
-    public Charge charge(ChargeRequest chargeRequest) throws StripeException {
+    public Charge charge(ChargeRequest chargeRequest) {
         try {
             Map<String, Object> chargeParams = createChargeParams(chargeRequest);
             log.info("Initiating charge with parameters: {}", chargeParams);
@@ -54,7 +54,7 @@ public class StripeServiceImpl implements StripeService {
             return charge;
         } catch (StripeException e) {
             log.error("Error processing payment with Stripe", e);
-            throw e;
+            throw new StripeCustomException(e.getMessage());
         }
     }
 

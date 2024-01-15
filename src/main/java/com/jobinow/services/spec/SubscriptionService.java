@@ -1,5 +1,7 @@
 package com.jobinow.services.spec;
 
+import com.jobinow.exceptions.InvalidPaymentException;
+import com.jobinow.model.dto.requests.ChargeRequest;
 import com.jobinow.model.dto.requests.SubscriptionRequest;
 import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.User;
@@ -24,6 +26,16 @@ import java.util.UUID;
  * @see _Service
  */
 public interface SubscriptionService extends _Service<UUID, SubscriptionRequest, SubscriptionResponse> {
+    /**
+     * Creates a new subscription with payment processing.
+     *
+     * @param request       DTO containing data for entity creation.
+     * @param chargeRequest DTO containing payment details.
+     * @return Optional containing the response DTO of the created entity.
+     * @throws InvalidPaymentException If payment processing fails.
+     */
+    Optional<SubscriptionResponse> create(SubscriptionRequest request, ChargeRequest chargeRequest);
+
     /**
      * Finds a subscription by the recruiter.
      *

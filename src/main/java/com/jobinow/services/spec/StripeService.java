@@ -19,5 +19,5 @@ public interface StripeService {
      * @return The Charge object representing the result of the charge operation.
      * @throws StripeException If an error occurs during the Stripe API call.
      */
-    Charge charge(ChargeRequest chargeRequest) throws StripeException;
+    Charge charge(ChargeRequest chargeRequest);
 }

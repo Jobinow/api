@@ -20,12 +20,24 @@ import java.util.List;
 public class NotAllowedToCreateOfferException extends RuntimeException {
 
     /**
+     * Default error message for NotAllowedToCreateOfferException.
+     */
+    private static final String DEFAULT_MESSAGE = "Not allowed to create more offers.";
+
+    /**
      * Constructor for NotAllowedToCreateOfferException with a custom message.
      *
      * @param message The custom error message.
      */
     public NotAllowedToCreateOfferException(String message) {
         super(message);
+    }
+
+    /**
+     * Constructor for NotAllowedToCreateOfferException with the default message.
+     */
+    public NotAllowedToCreateOfferException() {
+        super(DEFAULT_MESSAGE);
     }
 
     /**

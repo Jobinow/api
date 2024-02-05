@@ -4,6 +4,7 @@ server:
 logging:
   level:
     org.springframework.beans.factory: ERROR
+    org.springframework.security: trace
 
 spring:
   cache:
@@ -50,6 +51,16 @@ spring:
             instanceId: AUTO
           threadPool:
             threadCount: 5
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token:
+          introspection-uri: https://www.googleapis.com/
+          clientId: 1089177521327-6qmtrihgfdt3gp3mc2vpadtk9mc5gete.apps.googleusercontent.com
+          clientSecret: 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
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   mail:
     host: smtp.gmail.com
     port: 587

@@ -147,7 +147,6 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .build();
     }
 
-
     /**
      * Authenticates a user and generates new access and refresh tokens.
      *

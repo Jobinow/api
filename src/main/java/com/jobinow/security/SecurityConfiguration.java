@@ -3,13 +3,16 @@ package com.jobinow.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -21,8 +24,13 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-    /**
+/**
  * Configuration class for Spring Security settings.
+ * This class configures the security aspects of the application, including CORS settings,
+ * CSRF protection, session management, authentication providers, and JWT filter integration.
+ * It also defines the security filter chain that specifies which requests are secured and how.
+ *
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Configuration
 @EnableWebSecurity
@@ -71,11 +79,14 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
 
     /**
-     * Configures security settings for the application, including authentication, authorization, and JWT handling.
+     * Configures the security filter chain for the application.
+     * This method sets up CORS, CSRF protection, session management, and configures authentication
+     * and authorization for HTTP requests. It also integrates the JWT authentication filter and
+     * defines logout behavior.
      *
-     * @param http HttpSecurity object to configure security settings
-     * @return SecurityFilterChain object representing the configured security filter chain
-     * @throws Exception if an error occurs during the configuration process
+     * @param http HttpSecurity object to configure security settings.
+     * @return SecurityFilterChain object representing the configured security filter chain.
+     * @throws Exception if an error occurs during the configuration process.
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -87,14 +98,19 @@ public class SecurityConfiguration {
                         httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource())
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(customizer ->
+                        customizer.authenticationEntryPoint(
+                                new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
+                        )
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(STATELESS)
+                )
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(requestMatchers)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
-                )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(STATELESS)
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -104,10 +120,17 @@ public class SecurityConfiguration {
                                 .logoutSuccessHandler((request, response, authentication) ->
                                         SecurityContextHolder.clearContext()
                                 )
-                );
+                )
+                .oauth2ResourceServer(c -> c.opaqueToken(Customizer.withDefaults()));
         return http.build();
     }
 
+    /**
+     * Configures CORS (Cross-Origin Resource Sharing) settings for the application.
+     * This method defines which origins, HTTP methods, and headers are allowed in CORS requests.
+     *
+     * @return CorsConfigurationSource object representing the CORS configuration.
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

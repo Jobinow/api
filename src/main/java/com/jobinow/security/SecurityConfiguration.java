@@ -49,7 +49,8 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/actuator/**"
     };
     private static final String[] ALLOW_ORIGIN = {
             "http://localhost:4200"

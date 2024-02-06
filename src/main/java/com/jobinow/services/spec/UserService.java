@@ -70,4 +70,19 @@ public interface UserService {
      * @param connectedUser The principal representing the connected user.
      */
     void changePassword(ChangePasswordRequest request, Principal connectedUser);
+
+    /**
+     * Revokes all valid tokens for a user by marking them as expired and revoked.
+     *
+     * @param user User for whom tokens are revoked
+     */
+    void revokeAllUserTokens(User user);
+
+    /**
+     * Saves a new user token to the database.
+     *
+     * @param user     User for whom the token is generated
+     * @param jwtToken JWT token to be saved
+     */
+    void saveUserToken(User user, String jwtToken);
 }

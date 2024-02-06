@@ -1,7 +1,6 @@
 package com.jobinow.controllers;
 
 import com.jobinow.exceptions.ResourceNotCreatedException;
-import com.jobinow.model.dto.Oauth.UrlDto;
 import com.jobinow.model.dto.requests.AuthenticationRequest;
 import com.jobinow.model.dto.requests.RegisterRequest;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
@@ -12,11 +11,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
@@ -58,7 +59,7 @@ public class AuthenticationController {
      * Endpoint for registering a job seeker.
      * Validates the provided request and, if successful, registers the job seeker and generates authentication tokens.
      *
-     * @param request The registration request containing job seeker details.
+     * @param request       The registration request containing job seeker details.
      * @param bindingResult BindingResult for validation errors.
      * @return ResponseEntity with the registered job seeker's authentication response.
      * @throws ResourceNotCreatedException If there are validation errors.
@@ -78,7 +79,7 @@ public class AuthenticationController {
      * Endpoint for registering a manager.
      * Validates the provided request and, if successful, registers the manager and generates authentication tokens.
      *
-     * @param request The registration request containing manager details.
+     * @param request       The registration request containing manager details.
      * @param bindingResult BindingResult for validation errors.
      * @return ResponseEntity with the registered manager's authentication response.
      * @throws ResourceNotCreatedException If there are validation errors.
@@ -98,7 +99,7 @@ public class AuthenticationController {
      * Endpoint for registering an agent.
      * Validates the provided request and, if successful, registers the agent and generates authentication tokens.
      *
-     * @param request The registration request containing agent details.
+     * @param request       The registration request containing agent details.
      * @param bindingResult BindingResult for validation errors.
      * @return ResponseEntity with the registered agent's authentication response.
      * @throws ResourceNotCreatedException If there are validation errors.
@@ -118,7 +119,7 @@ public class AuthenticationController {
      * Endpoint for registering a recruiter.
      * Validates the provided request and, if successful, registers the recruiter and generates authentication tokens.
      *
-     * @param request The registration request containing recruiter details.
+     * @param request       The registration request containing recruiter details.
      * @param bindingResult BindingResult for validation errors.
      * @return ResponseEntity with the registered recruiter's authentication response.
      * @throws ResourceNotCreatedException If there are validation errors.
@@ -182,31 +183,4 @@ public class AuthenticationController {
         service.refreshToken(request, response);
     }
 
-    /**
-     * Endpoint for getting the Google OAuth authentication URL.
-     * Returns the URL that users should be redirected to for Google authentication.
-     *
-     * @return ResponseEntity containing the Google OAuth URL.
-     */
-    @GetMapping("/url")
-    public ResponseEntity<UrlDto> googleAuth() {
-        return ResponseEntity.ok(service.getGoogleAuthUrl());
-    }
-
-    /**
-     * Endpoint for handling the callback from Google OAuth.
-     * This method is invoked when Google redirects back to your application after user authentication.
-     *
-     * @param code The authorization code provided by Google.
-     * @return ResponseEntity with the authentication response after processing the Google callback.
-     */
-    @GetMapping("/callback")
-    public ResponseEntity<AuthenticationResponse> callback(@RequestParam("code") final String code) {
-        try {
-            return ResponseEntity.ok(service.authenticateFromGoogleCode(code));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
 }

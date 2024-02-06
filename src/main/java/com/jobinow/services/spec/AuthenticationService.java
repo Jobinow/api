@@ -1,10 +1,9 @@
 package com.jobinow.services.spec;
 
-import com.jobinow.model.dto.Oauth.TokenDto;
-import com.jobinow.model.dto.Oauth.UrlDto;
 import com.jobinow.model.dto.requests.AuthenticationRequest;
 import com.jobinow.model.dto.requests.RegisterRequest;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
+import com.jobinow.model.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -80,28 +79,4 @@ public interface AuthenticationService {
      */
     Boolean checkToken(String token);
 
-    /**
-     * Generates a URL for initiating Google OAuth authentication.
-     *
-     * @return A UrlDto containing the URL to redirect users to Google's OAuth service.
-     */
-    UrlDto getGoogleAuthUrl();
-
-    /**
-     * Retrieves a Google authentication token based on the provided authorization code.
-     *
-     * @param code The authorization code received from Google after user consent.
-     * @return A TokenDto containing the Google authentication token.
-     * @throws IOException If an error occurs during the token retrieval process.
-     */
-    TokenDto getGoogleTokenAuthentification(String code) throws IOException;
-
-    /**
-     * Authenticates a user with a Google authentication code.
-     *
-     * @param code The Google authentication code.
-     * @return AuthenticationResponse containing access and refresh tokens.
-     * @throws IOException If an error occurs during authentication.
-     */
-    AuthenticationResponse authenticateFromGoogleCode(String code) throws IOException;
 }

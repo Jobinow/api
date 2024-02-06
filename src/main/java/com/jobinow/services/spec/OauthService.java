@@ -1,37 +1,45 @@
 package com.jobinow.services.spec;
 
-import com.jobinow.model.entities.User;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import com.jobinow.model.dto.Oauth.TokenDto;
+import com.jobinow.model.dto.Oauth.UrlDto;
+import com.jobinow.model.dto.responses.AuthenticationResponse;
+
+import java.io.IOException;
 
 /**
- * Service interface for OAuth2 authentication with external providers.
+ * Interface defining the contract for OAuth services, particularly focusing on Google OAuth authentication.
+ * This interface outlines methods for generating a Google OAuth URL, retrieving a Google authentication token,
+ * and authenticating a user based on a Google authentication code.
+ *  @author <a href="mailto:ouharrioutman@gmail.com">ouharri outman</a>
  */
 public interface OauthService {
 
     /**
-     * Initializes the OAuth2 authorization request for a given provider.
+     * Generates a URL for initiating Google OAuth authentication.
+     * This URL is used to redirect users to Google's OAuth service for authentication purposes.
      *
-     * @param clientRegistration The OAuth2 provider to initialize.
-     * @return The OAuth2 authorization request.
+     * @return A UrlDto containing the URL to redirect users to Google's OAuth service.
      */
-    OAuth2AuthorizationRequest initAuthorizationRequest(ClientRegistration clientRegistration);
+    UrlDto getGoogleAuthUrl();
 
     /**
-     * Retrieves the authorized OAuth2 client for a given provider.
+     * Retrieves a Google authentication token based on the provided authorization code.
+     * This method is invoked after the user has authenticated with Google and an authorization code is received.
      *
-     * @param clientRegistration The OAuth2 provider for which to retrieve the authorized client.
-     * @return The authorized OAuth2 client.
+     * @param code The authorization code received from Google after user consent.
+     * @return A TokenDto containing the Google authentication token.
+     * @throws IOException If an error occurs during the token retrieval process.
      */
-    OAuth2AuthorizedClient getAuthorizedClient(ClientRegistration clientRegistration);
+    TokenDto getGoogleTokenAuthentification(String code) throws IOException;
 
     /**
-     * Retrieves the authenticated user from OAuth2 authorization information.
+     * Authenticates a user with a Google authentication code.
+     * This method processes the authentication code received from Google to authenticate the user
+     * and provide necessary access and refresh tokens.
      *
-     * @param authorizedClient The OAuth2 authorization information.
-     * @return The authenticated user.
+     * @param code The Google authentication code.
+     * @return AuthenticationResponse containing access and refresh tokens for the authenticated user.
+     * @throws IOException If an error occurs during the authentication process.
      */
-    User getUserFromAuthorizedClient(OAuth2AuthorizedClient authorizedClient);
-
+    AuthenticationResponse authenticateFromGoogleCode(String code) throws IOException;
 }

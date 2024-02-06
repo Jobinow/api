@@ -2,15 +2,17 @@ package com.jobinow.services.impl;
 
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
 import com.jobinow.model.dto.responses.UserResponses;
+import com.jobinow.model.entities.Token;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.TokenType;
 import com.jobinow.model.enums.UserStatus;
 import com.jobinow.model.mapper.UserMapper;
+import com.jobinow.repositories.TokenRepository;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.services.spec.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,9 +38,10 @@ import java.util.UUID;
 @Validated
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
-    private final UserRepository repository;
     private final UserMapper mapper;
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenRepository tokenRepository;
 
     /**
      * Retrieves a paginated list of all users.
@@ -164,5 +167,39 @@ public class UserServiceImp implements UserService {
      */
     public Page<UserResponses> findConnectedUsers(Pageable pageable) {
         return repository.findAllByStatus(UserStatus.ONLINE, pageable).map(mapper::toResponse);
+    }
+
+
+    /**
+     * Saves a new user token to the database.
+     *
+     * @param user     User for whom the token is generated
+     * @param jwtToken JWT token to be saved
+     */
+    public void saveUserToken(User user, String jwtToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
+    /**
+     * Revokes all valid tokens for a user by marking them as expired and revoked.
+     *
+     * @param user User for whom tokens are revoked
+     */
+    public void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        if (!validUserTokens.isEmpty()) {
+            validUserTokens.forEach(token -> {
+                token.setExpired(true);
+                token.setRevoked(true);
+            });
+            tokenRepository.saveAll(validUserTokens);
+        }
     }
 }

@@ -11,6 +11,7 @@ import com.jobinow.model.dto.Oauth.UrlDto;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.UserStatus;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.security.JwtService;
 import com.jobinow.services.spec.OauthService;
@@ -53,7 +54,7 @@ public class OauthServiceIml implements OauthService {
         return new UrlDto(
                 new GoogleAuthorizationCodeRequestUrl(
                         clientId,
-                        "http://localhost:4200/",
+                        "http://localhost:4200/recruiter/jobs",
                         Arrays.asList("email", "profile", "openid")
                 ).build()
         );
@@ -75,7 +76,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/"
+                    "http://localhost:4200/recruiter/jobs"
             )
                     .execute()
                     .getAccessToken();
@@ -99,6 +100,8 @@ public class OauthServiceIml implements OauthService {
 
         GoogleIdToken.Payload payload = getGooglePayload(code);
         User user = getUserFromPayload(payload);
+        user.setStatus(UserStatus.ONLINE);
+        repository.save(user);
 
         return createAuthenticationResponse(user);
     }
@@ -132,7 +135,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/"
+                    "http://localhost:4200/recruiter/jobs"
             ).execute();
         } catch (IOException e) {
             log.error("Error fetching Google token response: {}", e.getMessage());

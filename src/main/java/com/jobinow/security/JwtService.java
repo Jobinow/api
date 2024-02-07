@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * Service class for handling JWT generation, parsing, and validation.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Service
 public class JwtService {

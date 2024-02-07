@@ -85,4 +85,11 @@ public interface UserService {
      * @param jwtToken JWT token to be saved
      */
     void saveUserToken(User user, String jwtToken);
+
+    /**
+     * Updates the status of the specified user to offline.
+     *
+     * @param user The user to update.
+     */
+    void disconnect(User user);
 }

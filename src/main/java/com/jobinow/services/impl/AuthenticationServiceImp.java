@@ -7,6 +7,7 @@ import com.jobinow.model.dto.requests.RegisterRequest;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.UserStatus;
 import com.jobinow.repositories.TokenRepository;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.security.JwtService;
@@ -112,6 +113,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .firstname(request.firstname())
                 .lastname(request.lastname())
                 .email(request.email())
+                .status(UserStatus.ONLINE)
                 .password(passwordEncoder.encode(request.password()))
                 .build();
         user.setRole(role);
@@ -156,6 +158,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        user.setStatus(UserStatus.ONLINE);
+        repository.save(user);
         userService.revokeAllUserTokens(user);
         userService.saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()

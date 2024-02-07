@@ -54,7 +54,7 @@ public class OauthServiceIml implements OauthService {
         return new UrlDto(
                 new GoogleAuthorizationCodeRequestUrl(
                         clientId,
-                        "http://localhost:4200/recruiter/jobs",
+                        "http://localhost:4200/",
                         Arrays.asList("email", "profile", "openid")
                 ).build()
         );
@@ -76,7 +76,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/recruiter/jobs"
+                    "http://localhost:4200/"
             )
                     .execute()
                     .getAccessToken();
@@ -135,7 +135,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/recruiter/jobs"
+                    "http://localhost:4200/"
             ).execute();
         } catch (IOException e) {
             log.error("Error fetching Google token response: {}", e.getMessage());

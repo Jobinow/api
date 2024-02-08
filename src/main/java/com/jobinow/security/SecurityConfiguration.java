@@ -54,8 +54,6 @@ public class SecurityConfiguration {
             "/actuator/**"
     );
     private static final List<String> ALLOW_ORIGIN = List.of(
-            "https://b08b-197-230-250-154.ngrok-free.app",
-            "https://34c8-197-230-250-154.ngrok-free.app",
             "http://localhost:4200"
     );
     private static final List<String> ALLOW_METHODS = List.of(
@@ -158,6 +156,7 @@ public class SecurityConfiguration {
         configuration.setAllowedMethods(ALLOW_METHODS);
         configuration.setAllowedHeaders(ALLOW_HEAD);
         configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

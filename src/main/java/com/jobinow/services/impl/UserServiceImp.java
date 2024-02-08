@@ -152,7 +152,8 @@ public class UserServiceImp implements UserService {
      * @param user The user to update.
      */
     public void disconnect(User user) {
-        var storedUser = repository.findById(user.getId()).orElse(null);
+        var storedUser = repository.findById(user.getId())
+                .orElse(null);
         if (storedUser != null) {
             storedUser.setStatus(UserStatus.OFFLINE);
             repository.save(storedUser);
@@ -166,7 +167,8 @@ public class UserServiceImp implements UserService {
      * @return A paginated list of connected users.
      */
     public Page<UserResponses> findConnectedUsers(Pageable pageable) {
-        return repository.findAllByStatus(UserStatus.ONLINE, pageable).map(mapper::toResponse);
+        return repository.findAllByStatus(UserStatus.ONLINE, pageable)
+                .map(mapper::toResponse);
     }
 
 

@@ -19,6 +19,8 @@ import java.io.IOException;
 
 /**
  * Custom JWT authentication filter to process and validate JWT tokens in the incoming requests.
+ *
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 @Component
 @RequiredArgsConstructor

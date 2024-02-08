@@ -54,6 +54,8 @@ public class SecurityConfiguration {
             "/actuator/**"
     );
     private static final List<String> ALLOW_ORIGIN = List.of(
+            "https://b08b-197-230-250-154.ngrok-free.app",
+            "https://34c8-197-230-250-154.ngrok-free.app",
             "http://localhost:4200"
     );
     private static final List<String> ALLOW_METHODS = List.of(
@@ -70,10 +72,18 @@ public class SecurityConfiguration {
             "Access-Control-Max-Age",
             "Access-Control-Request-Headers",
             "Access-Control-Request-Method",
+            "accept",
+            "authorization",
+            "content-type",
+            "user-agent",
+            "x-csrftoken",
+            "x-requested-with",
+            "ngrok-skip-browser-warning",
             "Origin",
             "Cache-Control",
             "Content-Type",
             "Authorization",
+            "Accept",
             "X-Requested-With"
     );
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -147,6 +157,7 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(ALLOW_ORIGIN);
         configuration.setAllowedMethods(ALLOW_METHODS);
         configuration.setAllowedHeaders(ALLOW_HEAD);
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

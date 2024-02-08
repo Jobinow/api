@@ -7,6 +7,10 @@ logging:
     org.springframework.security: trace
 
 spring:
+  application:
+    name: jobinow
+    admin:
+      enabled: true
   cache:
     type: redis
     redis:
@@ -15,6 +19,8 @@ spring:
   data:
     redis:
       database: 0
+      repositories:
+        enabled: false
       host: jobinow-cache
       port: 6379
   docker:
@@ -36,7 +42,7 @@ spring:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
   quartz:
     jdbc:
       initialize-schema: always

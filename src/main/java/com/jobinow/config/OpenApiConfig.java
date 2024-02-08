@@ -32,11 +32,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
         ),
         servers = {
                 @Server(
-                        description = "Local ENV",
-                        url = "http://localhost:8084"
+                        description = "PROD ENV",
+                        url = "https://b08b-197-230-250-154.ngrok-free.app"
                 ),
                 @Server(
-                        description = "PROD ENV",
+                        description = "Local ENV",
                         url = "http://localhost:8085"
                 )
         },

@@ -70,10 +70,18 @@ public class SecurityConfiguration {
             "Access-Control-Max-Age",
             "Access-Control-Request-Headers",
             "Access-Control-Request-Method",
+            "accept",
+            "authorization",
+            "content-type",
+            "user-agent",
+            "x-csrftoken",
+            "x-requested-with",
+            "ngrok-skip-browser-warning",
             "Origin",
             "Cache-Control",
             "Content-Type",
             "Authorization",
+            "Accept",
             "X-Requested-With"
     );
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -147,6 +155,8 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(ALLOW_ORIGIN);
         configuration.setAllowedMethods(ALLOW_METHODS);
         configuration.setAllowedHeaders(ALLOW_HEAD);
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

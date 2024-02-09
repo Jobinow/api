@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "ouharri.outman+spring@gmail.com",
                         url = "https://ouharri.ma"
                 ),
-                description = "OpenApi documentation for Spring Security",
+                description = "OpenApi documentation for Jobinow API",
                 title = "OpenApi specification - ouharri",
                 version = "1.0",
                 license = @License(
@@ -32,11 +32,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
         ),
         servers = {
                 @Server(
-                        description = "Local ENV",
-                        url = "http://localhost:8084"
+                        description = "PROD ENV",
+                        url = " https://d9f4-197-230-250-154.ngrok-free.app"
                 ),
                 @Server(
-                        description = "PROD ENV",
+                        description = "Local ENV",
                         url = "http://localhost:8085"
                 )
         },

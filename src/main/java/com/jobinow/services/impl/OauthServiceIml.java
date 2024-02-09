@@ -11,6 +11,7 @@ import com.jobinow.model.dto.Oauth.UrlDto;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.UserStatus;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.security.JwtService;
 import com.jobinow.services.spec.OauthService;
@@ -99,6 +100,8 @@ public class OauthServiceIml implements OauthService {
 
         GoogleIdToken.Payload payload = getGooglePayload(code);
         User user = getUserFromPayload(payload);
+        user.setStatus(UserStatus.ONLINE);
+        repository.save(user);
 
         return createAuthenticationResponse(user);
     }

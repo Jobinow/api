@@ -20,7 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -37,7 +37,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
-    private static final String[] WHITE_LIST_URL = {
+
+    private static final List<String> WHITE_LIST_URL = List.of(
             "/api/v2/**",
             "/api/v2/auth/**",
             "/v2/api-docs",
@@ -49,31 +50,40 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
-    };
-    private static final String[] ALLOW_ORIGIN = {
+            "/swagger-ui.html",
+            "/actuator/**"
+    );
+    private static final List<String> ALLOW_ORIGIN = List.of(
             "http://localhost:4200"
-    };
-    private static final String[] ALLOW_METHODS = {
+    );
+    private static final List<String> ALLOW_METHODS = List.of(
             "GET",
             "POST",
             "PUT",
             "DELETE",
             "OPTIONS"
-    };
-    private static final String[] ALLOW_HEAD = {
+    );
+    private static final List<String> ALLOW_HEAD = List.of(
             "Access-Control-Allow-Origin",
             "Access-Control-Allow-Methods",
             "Access-Control-Allow-Headers",
             "Access-Control-Max-Age",
             "Access-Control-Request-Headers",
             "Access-Control-Request-Method",
+            "accept",
+            "authorization",
+            "content-type",
+            "user-agent",
+            "x-csrftoken",
+            "x-requested-with",
+            "ngrok-skip-browser-warning",
             "Origin",
             "Cache-Control",
             "Content-Type",
             "Authorization",
+            "Accept",
             "X-Requested-With"
-    };
+    );
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
@@ -90,9 +100,6 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        AntPathRequestMatcher[] requestMatchers = Arrays.stream(WHITE_LIST_URL)
-                .map(AntPathRequestMatcher::new)
-                .toArray(AntPathRequestMatcher[]::new);
         http
                 .cors(httpSecurityCorsConfigurer ->
                         httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource())
@@ -106,22 +113,33 @@ public class SecurityConfiguration {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(STATELESS)
                 )
+                .headers(headers ->
+                        headers.httpStrictTransportSecurity(hsts ->
+                                hsts.includeSubDomains(true)
+                                        .maxAgeInSeconds(31536000)
+                        )
+                )
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers(requestMatchers)
+                        req.requestMatchers(createWhiteListMatchers())
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
+                .oauth2ResourceServer(c ->
+                        c.jwt(Customizer.withDefaults())
+                )
                 .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
+                        logout.logoutUrl("/api/v2/auth/logout")
                                 .addLogoutHandler(logoutHandler)
                                 .logoutSuccessHandler((request, response, authentication) ->
                                         SecurityContextHolder.clearContext()
                                 )
-                )
-                .oauth2ResourceServer(c -> c.opaqueToken(Customizer.withDefaults()));
+                );
         return http.build();
     }
 
@@ -134,12 +152,25 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(ALLOW_ORIGIN));
-        configuration.setAllowedMethods(Arrays.asList(ALLOW_METHODS));
-        configuration.setAllowedHeaders(Arrays.asList(ALLOW_HEAD));
+        configuration.setAllowedOrigins(ALLOW_ORIGIN);
+        configuration.setAllowedMethods(ALLOW_METHODS);
+        configuration.setAllowedHeaders(ALLOW_HEAD);
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
+    /**
+     * Creates URL matchers based on the whitelist.
+     * Used to define paths exempt from authentication.
+     *
+     * @return an array of AntPathRequestMatcher based on the whitelist URLs.
+     */
+    private AntPathRequestMatcher[] createWhiteListMatchers() {
+        return WHITE_LIST_URL.stream()
+                .map(AntPathRequestMatcher::new)
+                .toArray(AntPathRequestMatcher[]::new);
+    }
 }

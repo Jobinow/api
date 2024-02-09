@@ -152,11 +152,9 @@ public class UserServiceImp implements UserService {
      * @param user The user to update.
      */
     public void disconnect(User user) {
-        var storedUser = repository.findById(user.getId())
-                .orElse(null);
-        if (storedUser != null) {
-            storedUser.setStatus(UserStatus.OFFLINE);
-            repository.save(storedUser);
+        if (user != null) {
+            user.setStatus(UserStatus.OFFLINE);
+            repository.save(user);
         }
     }
 

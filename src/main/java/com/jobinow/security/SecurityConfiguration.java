@@ -131,7 +131,7 @@ public class SecurityConfiguration {
                         UsernamePasswordAuthenticationFilter.class
                 )
                 .oauth2ResourceServer(c ->
-                        c.opaqueToken(Customizer.withDefaults())
+                        c.jwt(Customizer.withDefaults())
                 )
                 .logout(logout ->
                         logout.logoutUrl("/api/v2/auth/logout")

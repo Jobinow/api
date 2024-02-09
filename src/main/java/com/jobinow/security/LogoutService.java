@@ -30,7 +30,6 @@ public class LogoutService implements LogoutHandler {
      * @param response       HttpServletResponse
      * @param authentication Authentication object representing the current user's authentication details
      */
-    @Override
     @Transactional
     public void logout(
             HttpServletRequest request,
@@ -40,9 +39,8 @@ public class LogoutService implements LogoutHandler {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer "))
             return;
-        }
 
         jwt = authHeader.substring(7);
         var storedToken = tokenRepository.findByToken(jwt)

@@ -42,4 +42,3 @@ public class UserBadges extends AbstractEntity {
     @OneToOne
     private Assessment assessment;
 }
-

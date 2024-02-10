@@ -45,7 +45,7 @@ public class Question extends AbstractEntity {
     /**
      * The Time (in second) allocated to answer the question.
      */
-    private int timed;
+    private int time;
 
     /**
      * The quiz to which this question belongs.

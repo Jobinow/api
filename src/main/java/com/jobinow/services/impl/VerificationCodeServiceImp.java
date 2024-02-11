@@ -4,7 +4,7 @@ import com.jobinow.exceptions.ResourceNotCreatedException;
 import com.jobinow.model.dto.requests.VerificationCodeRequest;
 import com.jobinow.model.entities.Company;
 import com.jobinow.model.entities.VerificationCode;
-import com.jobinow.model.mapper.VerificationCodeMapper;
+import com.jobinow.mapper.VerificationCodeMapper;
 import com.jobinow.repositories.VerificationCodeRepository;
 import com.jobinow.services.spec.VerificationCodeService;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,7 @@
-package com.jobinow.model.mapper;
+package com.jobinow.mapper;
 
 import com.jobinow.model.dto.requests.CompanyRequest;
-import com.jobinow.model.dto.requests.CompanyRequest;
 import com.jobinow.model.dto.responses.CompanyResponse;
-import com.jobinow.model.dto.responses.CompanyResponse;
-import com.jobinow.model.entities.Company;
 import com.jobinow.model.entities.Company;
 import org.mapstruct.*;
 

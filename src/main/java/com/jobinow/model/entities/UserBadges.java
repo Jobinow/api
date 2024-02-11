@@ -1,9 +1,8 @@
-package com.jobinow.model.entities.quiz;
+package com.jobinow.model.entities;
 
-import com.jobinow.model.entities.AbstractEntity;
-import com.jobinow.model.entities.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,17 +27,20 @@ public class UserBadges extends AbstractEntity {
      * The badge awarded to the user.
      */
     @OneToOne
+    @NotNull(message = "Badge cannot be null")
     private Badge badge;
 
     /**
      * The user who earned the badge.
      */
     @OneToOne
+    @NotNull(message = "User cannot be null")
     private User user;
 
     /**
      * The assessment for which the badge was awarded.
      */
     @OneToOne
+    @NotNull(message = "Assessment cannot be null")
     private Assessment assessment;
 }

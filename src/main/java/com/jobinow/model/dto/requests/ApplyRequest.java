@@ -20,6 +20,7 @@ public record ApplyRequest(
 
         @NotNull(message = "offer requirements cannot be null")
         OfferResponse offer,
+
         Set<AttachmentRequest> attachmentUrls
 ) implements _Request {
 }

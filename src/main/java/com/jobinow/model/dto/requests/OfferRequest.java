@@ -2,8 +2,6 @@ package com.jobinow.model.dto.requests;
 
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Offer;
-import com.jobinow.model.entities.User;
-import com.jobinow.model.mapper.UserMapper;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

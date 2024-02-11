@@ -4,7 +4,7 @@ import com.jobinow.exceptions.ResourceNotCreatedException;
 import com.jobinow.model.dto.requests._Request;
 import com.jobinow.model.dto.responses._Response;
 import com.jobinow.model.entities._Entity;
-import com.jobinow.model.mapper._Mapper;
+import com.jobinow.mapper._Mapper;
 import com.jobinow.services.spec._Service;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -58,6 +58,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      *
      * @return List of response DTOs representing all entities.
      */
+    @Transactional
     @Cacheable(sync = true)
     public List<Res> getAll() {
         assert repository != null;
@@ -73,6 +74,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param pageable Pagination information.
      * @return Page of response DTOs.
      */
+    @Transactional
     public Page<Res> getAll(Pageable pageable) {
         assert repository != null;
         assert mapper != null;
@@ -138,6 +140,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @param id Unique identifier of the entity.
      * @return Optional containing the response DTO of the found entity.
      */
+    @Transactional
     @Cacheable(key = "#id", sync = true)
     public Optional<Res> getById(ID id) {
         assert repository != null;

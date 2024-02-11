@@ -1,8 +1,8 @@
-package com.jobinow.model.mapper;
+package com.jobinow.mapper;
 
-import com.jobinow.model.dto.requests.TagRequest;
-import com.jobinow.model.dto.responses.TagResponse;
-import com.jobinow.model.entities.Tag;
+import com.jobinow.model.dto.requests.UserRequest;
+import com.jobinow.model.dto.responses.UserResponses;
+import com.jobinow.model.entities.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.UUID;
 
 /**
- * Mapper interface for converting between {@link TagRequest}, {@link TagResponse}, and {@link Tag} entities.
+ * Mapper interface for converting between {@link UserRequest}, {@link UserResponses}, and {@link User} entities.
  * Extends the generic {@link _Mapper} interface with UUID as the identifier type.
  */
 @Mapper(
@@ -19,5 +19,5 @@ import java.util.UUID;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         componentModel = MappingConstants.ComponentModel.SPRING
 )
-public interface TagMapper extends _Mapper<UUID, TagRequest, TagResponse, Tag> {
+public interface UserMapper extends _Mapper<UUID, UserRequest, UserResponses, User> {
 }

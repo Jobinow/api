@@ -7,7 +7,7 @@ import com.jobinow.model.dto.responses.SubscriptionResponse;
 import com.jobinow.model.entities.Subscription;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.SubscriptionStatus;
-import com.jobinow.model.mapper.SubscriptionMapper;
+import com.jobinow.mapper.SubscriptionMapper;
 import com.jobinow.repositories.SubscriptionRepository;
 import com.jobinow.services.spec.StripeService;
 import com.jobinow.services.spec.SubscriptionService;

@@ -1,4 +1,4 @@
-package com.jobinow.model.mapper;
+package com.jobinow.mapper;
 
 import com.jobinow.model.dto.requests.VerificationCodeRequest;
 import com.jobinow.model.dto.responses.VerificationCodeResponse;

@@ -5,7 +5,7 @@ import com.jobinow.model.dto.requests.PackRequest;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.dto.responses.PackResponse;
 import com.jobinow.model.entities.Pack;
-import com.jobinow.model.mapper.PackMapper;
+import com.jobinow.mapper.PackMapper;
 import com.jobinow.repositories.PackRepository;
 import com.jobinow.services.spec.PackService;
 import com.jobinow.services.spec._Service;

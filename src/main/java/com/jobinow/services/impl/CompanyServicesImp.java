@@ -8,7 +8,7 @@ import com.jobinow.model.dto.responses.CompanyResponse;
 import com.jobinow.model.entities.Company;
 import com.jobinow.model.entities.VerificationCode;
 import com.jobinow.model.enums.CompanyStatus;
-import com.jobinow.model.mapper.CompanyMapper;
+import com.jobinow.mapper.CompanyMapper;
 import com.jobinow.repositories.CompanyRepository;
 import com.jobinow.services.spec.CompanyServices;
 import com.jobinow.services.spec.VerificationCodeService;
@@ -19,7 +19,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.UUID;
 

@@ -3,7 +3,10 @@ package com.jobinow.mapper;
 import com.jobinow.model.dto.requests.AnswerRequestDto;
 import com.jobinow.model.dto.responses.AnswerResponseDto;
 import com.jobinow.model.entities.Answer;
-import org.mapstruct.*;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.UUID;
 

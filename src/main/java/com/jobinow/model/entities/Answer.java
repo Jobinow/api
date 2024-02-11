@@ -1,7 +1,8 @@
-package com.jobinow.model.entities.quiz;
+package com.jobinow.model.entities;
 
-import com.jobinow.model.entities.AbstractEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Represents an option for a multiple-choice question in a quiz.
+ * Represents an option (Answer) for a question in a quiz.
  *
  * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
@@ -24,19 +25,16 @@ public class Answer extends AbstractEntity {
     /**
      * The text of the option.
      */
+    @NotNull(message = "Answer content cannot be null")
+    @Size(min = 1, max = 500, message = "Answer content must be between 1 and 500 characters")
     @Column(nullable = false, length = 500)
     private String content;
 
     /**
      * The question to which this option belongs.
      */
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(
-            name = "question_id",
-            nullable = false
-    )
+    @NotNull(message = "Question cannot be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
-
 }

@@ -1,4 +1,4 @@
-package com.jobinow.model.mapper;
+package com.jobinow.mapper;
 
 import com.jobinow.model.dto.requests.ProfilRequest;
 import com.jobinow.model.dto.responses.ProfilResponse;

@@ -36,6 +36,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         url = " https://d9f4-197-230-250-154.ngrok-free.app"
                 ),
                 @Server(
+                        description = "Test ENV",
+                        url = "http://localhost:8084    "
+                ),
+                @Server(
                         description = "Local ENV",
                         url = "http://localhost:8085"
                 )

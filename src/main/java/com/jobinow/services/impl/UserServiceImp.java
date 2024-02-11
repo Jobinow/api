@@ -7,7 +7,7 @@ import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.TokenType;
 import com.jobinow.model.enums.UserStatus;
-import com.jobinow.model.mapper.UserMapper;
+import com.jobinow.mapper.UserMapper;
 import com.jobinow.repositories.TokenRepository;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.services.spec.UserService;

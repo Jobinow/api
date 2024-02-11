@@ -3,7 +3,7 @@ package com.jobinow.services.impl;
 import com.jobinow.model.dto.requests.ProfilRequest;
 import com.jobinow.model.dto.responses.ProfilResponse;
 import com.jobinow.model.entities.Profil;
-import com.jobinow.model.mapper.ProfilMapper;
+import com.jobinow.mapper.ProfilMapper;
 import com.jobinow.repositories.ProfilRepository;
 import com.jobinow.services.spec.ProfileService;
 import lombok.RequiredArgsConstructor;

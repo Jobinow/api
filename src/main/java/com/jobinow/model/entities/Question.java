@@ -66,12 +66,6 @@ public class Question extends AbstractEntity {
     private Quiz quiz;
 
     /**
-     * A set of correct answers for this question.
-     */
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CorrectAnswer> correctAnswers;
-
-    /**
      * A set of options for this question.
      */
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.jobinow.services.impl;
 
+import com.jobinow.mapper.UserMapper;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
 import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.Token;
@@ -7,7 +8,6 @@ import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.TokenType;
 import com.jobinow.model.enums.UserStatus;
-import com.jobinow.mapper.UserMapper;
 import com.jobinow.repositories.TokenRepository;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.services.spec.UserService;

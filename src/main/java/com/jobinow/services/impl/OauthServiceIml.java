@@ -38,6 +38,8 @@ public class OauthServiceIml implements OauthService {
     private final UserService userService;
     private final UserRepository repository;
 
+    private final String googleAuthRedirectUri = "http://localhost:4200/auth/Oauth/callback";
+
     @Value("${spring.security.oauth2.resourceserver.opaque-token.clientId}")
     private String clientId;
 
@@ -54,7 +56,7 @@ public class OauthServiceIml implements OauthService {
         return new UrlDto(
                 new GoogleAuthorizationCodeRequestUrl(
                         clientId,
-                        "http://localhost:4200/",
+                        googleAuthRedirectUri,
                         Arrays.asList("email", "profile", "openid")
                 ).build()
         );
@@ -76,7 +78,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/"
+                    googleAuthRedirectUri
             )
                     .execute()
                     .getAccessToken();
@@ -135,7 +137,7 @@ public class OauthServiceIml implements OauthService {
                     clientId,
                     clientSecret,
                     code,
-                    "http://localhost:4200/"
+                    googleAuthRedirectUri
             ).execute();
         } catch (IOException e) {
             log.error("Error fetching Google token response: {}", e.getMessage());

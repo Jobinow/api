@@ -102,14 +102,14 @@ public class User extends AbstractEntity implements UserDetails {
      * The user's role.
      */
     @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+//    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Role role;
 
 
     /**
      * The list of tokens associated with the user.
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Token> tokens;
 
     /**

@@ -41,5 +41,5 @@ public class QuestionResponseDto extends AbstractResponse {
     @Positive(message = "Time must be a positive number")
     int time;
 
-    Set<OptionResponse> answers;
+    Set<OptionResponse> options;
 }

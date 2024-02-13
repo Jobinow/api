@@ -36,6 +36,11 @@ public class Answer extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Option> options;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull(message = "assessment cannot be null")
+    @JoinColumn(name = "assessment_id", nullable = false)
+    private Assessment assessment;
+
     /**
      * The user who provided this answer.
      * This field is mandatory and links the answer to the user who answered the question.

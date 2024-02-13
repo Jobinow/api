@@ -7,8 +7,10 @@ import java.util.UUID;
 
 /**
  * Spring Data JPA repository for {@link Answer} entities.
- * This interface provides CRUD operations for accessing and manipulating Answer data in the database.
- * It uses UUID as the identifier type for Answer entities.
+ * This interface provides the mechanism for CRUD operations on Answer entities, as well as
+ * the ability to execute custom queries as defined.
+ * <p>
+ * Extends JpaRepository, leveraging Spring Data's repository abstraction to simplify the data access layer.
  */
 public interface AnswerRepository extends JpaRepository<Answer, UUID> {
 }

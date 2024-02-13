@@ -1,7 +1,7 @@
 package com.jobinow.model.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jobinow.model.entities.CorrectAnswer;
+import com.jobinow.model.entities.Answer;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Set;
+
 /**
- * Data Transfer Object (DTO) for sending response data related to a {@link CorrectAnswer}.
- * This DTO encapsulates the correct answer data sent back to clients in response to their requests.
+ * Response DTO for {@link Answer} entity.
+ * This DTO encapsulates the data sent back to clients in response to requests concerning an Answer.
+ * It includes details of the question, the options provided, and the user associated with the answer.
  */
 @Getter
 @Setter
@@ -19,10 +22,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CorrectAnswerResponseDto extends AbstractResponse {
-    @NotNull(message = "Answer cannot be null")
-    AnswerResponseDto answer;
-
+public class AnswerResponsesDto extends AbstractResponse {
     @NotNull(message = "Question cannot be null")
     QuestionResponseDto question;
+
+    Set<OptionResponse> options;
+
+    @NotNull(message = "User cannot be null")
+    UserResponses user;
 }

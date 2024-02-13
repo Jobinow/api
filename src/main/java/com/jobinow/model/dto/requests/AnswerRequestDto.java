@@ -1,23 +1,22 @@
 package com.jobinow.model.dto.requests;
 
-import com.jobinow.model.dto.responses.QuestionResponseDto;
+import com.jobinow.model.dto.responses.OptionResponseDto;
 import com.jobinow.model.entities.Answer;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+import java.util.Set;
 
 /**
- * Data Transfer Object (DTO) for creating or updating an {@link Answer}.
- * This DTO encapsulates the data required to create or modify an answer
- * in a quiz question.
+ * Request DTO for {@link Answer} entity.
+ * This DTO is used to encapsulate the data necessary for creating or updating an Answer.
+ * It includes the associated question and a set of selected options.
  */
 public record AnswerRequestDto(
-
-        @NotNull(message = "Answer content cannot be null")
-        @Size(message = "Answer content must be between 1 and 500 characters", min = 1, max = 500)
-        String content,
-
-
         @NotNull(message = "Question cannot be null")
-        QuestionResponseDto question
+        QuestionRequestDto question,
+
+        @NotEmpty(message = "Options cannot be empty")
+        Set<OptionResponseDto> options
 ) implements _Request {
 }

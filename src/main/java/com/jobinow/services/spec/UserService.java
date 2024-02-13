@@ -5,6 +5,7 @@ import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 /**
  * Service interface for managing User entities.
+ * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 public interface UserService {
 
@@ -22,6 +24,24 @@ public interface UserService {
      * @return An Optional containing the user, or an empty Optional if not found.
      */
     Optional<User> findById(UUID id);
+
+    /**
+     * Retrieves the currently authenticated user.
+     * <p>
+     * This method fetches the current user's details from the Spring Security context.
+     * It performs checks to ensure that there is an authenticated user and that the user
+     * is not an instance of {@link AnonymousAuthenticationToken}.
+     * </p>
+     */
+    UserResponses getCurrentUser();
+
+    /**
+     * Retrieves a user by email.
+     *
+     * @param email The email of the user to retrieve.
+     * @return Optional containing the user if found, otherwise empty.
+     */
+    Optional<User> findByEmail(String email);
 
     /**
      * Retrieves a list of all users.

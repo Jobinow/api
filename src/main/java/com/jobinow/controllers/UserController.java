@@ -41,6 +41,16 @@ public class UserController {
     }
 
     /**
+     * Retrieves the currently authenticated user.
+     *
+     * @return ResponseEntity containing the current user's details.
+     */
+    @GetMapping("/current")
+    public ResponseEntity<UserResponses> getCurrentUser() {
+        return ResponseEntity.ok(service.getCurrentUser());
+    }
+
+    /**
      * Retrieves a paginated list of job-seekers.
      *
      * @param pageable The pagination information.

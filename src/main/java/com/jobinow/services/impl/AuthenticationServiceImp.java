@@ -24,6 +24,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -106,6 +107,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
      * @param role    The role to be assigned to the new user, which determines the user's permissions and access.
      * @return AuthenticationResponse containing the generated JWT access and refresh tokens.
      */
+    @Transactional
     private AuthenticationResponse createUser(RegisterRequest request, Role role) {
         log.info("Creating a new user with role: {}", role);
 
@@ -139,6 +141,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
      * @param request Authentication request containing user credentials
      * @return AuthenticationResponse containing new access and refresh tokens
      */
+    @Transactional
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
             authenticationManager.authenticate(

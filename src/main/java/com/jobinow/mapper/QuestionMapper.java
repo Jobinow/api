@@ -20,6 +20,7 @@ import java.util.UUID;
  * and maintainable code for entity-DTO transformation.
  */
 @Mapper(
+
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         componentModel = MappingConstants.ComponentModel.SPRING

@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "PROD ENV",
-                        url = " https://d9f4-197-230-250-154.ngrok-free.app"
+                        url = "https://0ac2-197-230-250-154.ngrok-free.app"
                 ),
                 @Server(
                         description = "Test ENV",

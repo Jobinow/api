@@ -1,5 +1,7 @@
 package com.jobinow.services.impl;
 
+import com.jobinow.exceptions.NoAuthenticateUser;
+import com.jobinow.exceptions.ResourceNotFoundException;
 import com.jobinow.mapper.UserMapper;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
 import com.jobinow.model.dto.responses.UserResponses;
@@ -15,7 +17,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -53,6 +59,31 @@ public class UserServiceImp implements UserService {
     public Page<UserResponses> getAllUsers(Pageable pageable) {
         return repository.findAll(pageable).map(mapper::toResponse);
     }
+
+    /**
+     * Retrieves the currently authenticated user.
+     * <p>
+     * This method fetches the current user's details from the Spring Security context.
+     * It performs checks to ensure that there is an authenticated user and that the user
+     * is not an instance of {@link AnonymousAuthenticationToken}.
+     * </p>
+     */
+    public UserResponses getCurrentUser() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (authentication == null ||
+                !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken)
+            throw new NoAuthenticateUser("User not authenticated");
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return mapper.toResponse(user);
+    }
+
 
     /**
      * Retrieves a paginated list of manager users.

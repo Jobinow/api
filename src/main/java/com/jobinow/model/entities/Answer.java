@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,7 +35,7 @@ public class Answer extends AbstractEntity {
      * This collection contains the choices made by the user in response to the question.
      */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Option> options;
+    private List<Option> options;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "assessment cannot be null")

@@ -29,6 +29,11 @@ public enum QuestionType {
     FILL_IN_THE_BLANK,
 
     /**
+     * Questions where the participant must select a single item from a list.
+     */
+    SINGLE_CHOICE,
+
+    /**
      * Questions where the participant must match items from two lists.
      */
     MATCHING,

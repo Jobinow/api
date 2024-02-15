@@ -60,8 +60,8 @@ public class AssessmentServiceImpl extends _ServiceImp<UUID, AssessmentRequestDt
                 case SHORT_ANSWER:
                     answerPercent.addAndGet(calculateShortAnswerScore(a));
                     break;
-                case ESSAY:
-                    answerPercent.addAndGet(calculateEssayScore(a));
+                case EASY:
+                    answerPercent.addAndGet(calculateEasyScore(a));
                     break;
                 default:
                     log.error("Unknown question type: {}", question.getType());
@@ -83,10 +83,10 @@ public class AssessmentServiceImpl extends _ServiceImp<UUID, AssessmentRequestDt
         if (a.getOptions().size() > 1)
             return 0;
 
-        return a.getOptions().getFirst().isCorrect() ? 1 : 0;
+        return a.getOptions().get(0).isCorrect() ? 1 : 0;
     }
 
-    private double calculateEssayScore(Answer a) {
+    private double calculateEasyScore(Answer a) {
         AtomicInteger answerScore = new AtomicInteger();
         AtomicInteger correctAnswer = new AtomicInteger();
         a.getOptions().forEach(o -> {
@@ -107,8 +107,8 @@ public class AssessmentServiceImpl extends _ServiceImp<UUID, AssessmentRequestDt
             return 0;
 
         if (
-                a.getOptions().getFirst().getContent()
-                        .equalsIgnoreCase(a.getQuestion().getOptions().getFirst().getContent())
+                a.getOptions().get(0).getContent()
+                        .equalsIgnoreCase(a.getQuestion().getOptions().get(0).getContent())
         )
             return 1;
 
@@ -119,7 +119,7 @@ public class AssessmentServiceImpl extends _ServiceImp<UUID, AssessmentRequestDt
         if (a.getOptions().size() > 1)
             return 0;
 
-        return a.getOptions().getFirst().isCorrect() ? 1 : 0;
+        return a.getOptions().get(0).isCorrect() ? 1 : 0;
     }
 
     private double calculateMultipleChoiceScore(Answer a) {

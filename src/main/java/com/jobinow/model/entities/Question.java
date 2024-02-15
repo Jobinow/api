@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.URL;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Represents a question in a quiz.

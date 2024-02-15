@@ -1,8 +1,10 @@
 package com.jobinow.repositories;
 
 import com.jobinow.model.entities.Answer;
+import com.jobinow.model.entities.Assessment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,4 +15,5 @@ import java.util.UUID;
  * Extends JpaRepository, leveraging Spring Data's repository abstraction to simplify the data access layer.
  */
 public interface AnswerRepository extends JpaRepository<Answer, UUID> {
+    List<Answer> findByAssessment(Assessment assessment);
 }

@@ -2,7 +2,10 @@ package com.jobinow.services.spec;
 
 import com.jobinow.model.dto.requests.AnswerRequestDto;
 import com.jobinow.model.dto.responses.AnswerResponsesDto;
+import com.jobinow.model.entities.Answer;
+import com.jobinow.model.entities.Assessment;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -16,4 +19,5 @@ import java.util.UUID;
  * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  */
 public interface AnswerService extends _Service<UUID, AnswerRequestDto, AnswerResponsesDto> {
+    List<Answer> findByAssessment(Assessment assessment);
 }

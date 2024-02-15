@@ -7,6 +7,7 @@ import com.jobinow.mapper.AnswerMapper;
 import com.jobinow.model.dto.requests.AnswerRequestDto;
 import com.jobinow.model.dto.responses.AnswerResponsesDto;
 import com.jobinow.model.entities.Answer;
+import com.jobinow.model.entities.Assessment;
 import com.jobinow.model.entities.User;
 import com.jobinow.repositories.AnswerRepository;
 import com.jobinow.services.spec.AnswerService;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -70,5 +72,9 @@ public class AnswerServiceImpl extends _ServiceImp<UUID, AnswerRequestDto, Answe
             log.error("Error while creating entity", e);
             throw new ResourceNotCreatedException(e.getMessage());
         }
+    }
+
+    public List<Answer> findByAssessment(Assessment assessment) {
+        return repository.findByAssessment(assessment);
     }
 }

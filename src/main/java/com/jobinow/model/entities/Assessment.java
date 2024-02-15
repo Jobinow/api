@@ -58,7 +58,7 @@ public class Assessment extends AbstractEntity {
      * The percentage result of the assessment.
      */
     @Min(value = 0, message = "Percentage result cannot be negative")
-    private int percentageResult;
+    private double percentageResult;
 
     /**
      * A flag indicating whether the assessment was successfully completed.

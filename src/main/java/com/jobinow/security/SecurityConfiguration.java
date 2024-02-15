@@ -40,6 +40,7 @@ public class SecurityConfiguration {
     private static final List<String> WHITE_LIST_URL = List.of(
             "/api/v2/**",
             "/api/v2/auth/**",
+            "/api/v2/Oauth/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

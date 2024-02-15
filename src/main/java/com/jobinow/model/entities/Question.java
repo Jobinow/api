@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.URL;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -69,5 +70,5 @@ public class Question extends AbstractEntity {
      * A set of options for this question.
      */
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Option> options;
+    private List<Option> options;
 }

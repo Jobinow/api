@@ -46,5 +46,7 @@ public enum QuestionType {
     /**
      * Questions asking for an extended response, often used to assess critical thinking.
      */
-    ESSAY
+    ESSAY,
+
+    EASY
 }

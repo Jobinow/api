@@ -46,7 +46,7 @@ public class Badge extends AbstractEntity {
     /**
      * The quiz associated with this badge.
      */
-    @OneToOne
+    @OneToOne(mappedBy = "badge")
     @NotNull(message = "Badge Quiz cannot be null")
     private Quiz quiz;
 

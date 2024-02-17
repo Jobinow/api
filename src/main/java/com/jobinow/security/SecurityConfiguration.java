@@ -54,7 +54,8 @@ public class SecurityConfiguration {
             "/actuator/**"
     );
     private static final List<String> ALLOW_ORIGIN = List.of(
-            "http://localhost:4200"
+            "http://localhost:4200",
+            "https://ff15-197-230-250-154.ngrok-free.app"
     );
     private static final List<String> ALLOW_METHODS = List.of(
             "GET",
@@ -113,10 +114,10 @@ public class SecurityConfiguration {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(STATELESS)
                 )
-                .headers(headers ->
-                        headers.httpStrictTransportSecurity(hsts ->
-                                hsts.includeSubDomains(true)
-                                        .maxAgeInSeconds(31536000)
+                .headers(headers -> headers
+                        .httpStrictTransportSecurity(hsts -> hsts
+                                .includeSubDomains(true)
+                                .maxAgeInSeconds(31536000)
                         )
                 )
                 .authorizeHttpRequests(req ->

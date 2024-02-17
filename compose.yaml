@@ -1,3 +1,4 @@
+name: jobinow
 services:
   jobinow-db:
     image: 'postgres:latest'
@@ -40,9 +41,9 @@ services:
   jobinow-api:
     container_name: jobinow-api
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
-    image: jobinow-api
+    image: ouharri/jobinow-api:latest
     ports:
       - "8085:8084"
     depends_on:

@@ -61,4 +61,7 @@ public class Badge extends AbstractEntity {
      */
     @URL(message = "Image URL must be valid")
     private String imageUrl;
+
+    @ManyToMany(mappedBy = "badges")
+    private Set<User> jobSeekers;
 }

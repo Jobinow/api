@@ -134,6 +134,14 @@ public class User extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "recruiter")
     private List<Offer> Offers;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "seeker_badge",
+            joinColumns = @JoinColumn(name = "seeker_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "badge_id", nullable = false)
+    )
+    List<Badge> badges;
+
     /**
      * Return the authorities granted to the user.
      *

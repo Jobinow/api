@@ -59,7 +59,7 @@ public abstract class _ServiceImp<ID, Req extends _Request, Res extends _Respons
      * @return List of response DTOs representing all entities.
      */
     @Transactional
-    @Cacheable(sync = true)
+//    @Cacheable(sync = true)
     public List<Res> getAll() {
         assert repository != null;
         assert mapper != null;

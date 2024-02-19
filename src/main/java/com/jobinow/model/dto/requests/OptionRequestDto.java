@@ -2,6 +2,7 @@ package com.jobinow.model.dto.requests;
 
 import com.jobinow.model.dto.responses.QuestionResponseDto;
 import com.jobinow.model.entities.Option;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -18,6 +19,9 @@ public record OptionRequestDto(
 
 
         @NotNull(message = "Question cannot be null")
-        QuestionResponseDto question
+        QuestionResponseDto question,
+
+        @NotNull(message = "Correctness flag cannot be null")
+        boolean isCorrect
 ) implements _Request {
 }

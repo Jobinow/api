@@ -56,6 +56,7 @@ public class Quiz extends AbstractEntity {
      * The badge associated with this quiz.
      */
     @OneToOne
+    @JoinColumn(nullable = false)
     private Badge badge;
 
     /**

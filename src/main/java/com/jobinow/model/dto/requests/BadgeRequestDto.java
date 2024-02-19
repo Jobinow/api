@@ -22,7 +22,6 @@ public record BadgeRequestDto(
         @Size(message = "Badge description cannot exceed 500 characters", max = 500)
         String description,
 
-        @NotNull(message = "Badge Quiz cannot be null")
         QuizResponseDto quiz,
 
         Set<ProfilResponse> profile,

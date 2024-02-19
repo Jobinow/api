@@ -40,5 +40,8 @@ public class QuizResponseDto extends AbstractResponse {
     @Max(message = "Passing percentage cannot be more than 100", value = 100)
     int passingPercentage;
 
+    @NotNull(message = "Badge cannot be null")
+    BadgeResponseDto badge;
+
     Set<QuestionResponseDto> questions;
 }

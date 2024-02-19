@@ -1,5 +1,7 @@
 package com.jobinow.model.dto.requests;
 
+import com.jobinow.model.dto.responses.BadgeResponseDto;
+import com.jobinow.model.entities.Badge;
 import com.jobinow.model.entities.Quiz;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -22,6 +24,9 @@ public record QuizRequestDto(
 
         @URL(message = "Image URL must be valid")
         String imageUrl,
+
+        @NotNull(message = "Badge cannot be null")
+        BadgeResponseDto badge,
 
         @Min(message = "Passing percentage cannot be less than 0", value = 0)
         @Max(message = "Passing percentage cannot be more than 100", value = 100)

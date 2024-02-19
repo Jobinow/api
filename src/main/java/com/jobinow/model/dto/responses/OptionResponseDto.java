@@ -1,5 +1,6 @@
 package com.jobinow.model.dto.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jobinow.model.entities.Option;
 import jakarta.validation.constraints.NotNull;
@@ -26,5 +27,8 @@ public class OptionResponseDto extends AbstractResponse {
     String content;
 
     @NotNull(message = "Question cannot be null")
-    QuestionResponseDto question;
+//    QuestionResponseDto question;
+
+    @NotNull(message = "Correctness flag cannot be null")
+    boolean isCorrect;
 }

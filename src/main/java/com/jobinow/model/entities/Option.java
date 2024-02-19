@@ -43,5 +43,5 @@ public class Option extends AbstractEntity {
      */
     @NotNull(message = "Correctness flag cannot be null")
     @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean isCorrect = false;
+    private boolean isCorrect;
 }

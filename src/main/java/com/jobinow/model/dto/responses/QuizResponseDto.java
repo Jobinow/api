@@ -13,7 +13,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.URL;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Data Transfer Object (DTO) for sending response data related to a {@link Quiz}.
@@ -40,5 +40,5 @@ public class QuizResponseDto extends AbstractResponse {
     @Max(message = "Passing percentage cannot be more than 100", value = 100)
     int passingPercentage;
 
-    Set<QuestionResponseDto> questions;
+    List<QuestionResponseDto> questions;
 }

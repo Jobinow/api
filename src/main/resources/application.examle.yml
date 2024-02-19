@@ -28,7 +28,7 @@ spring:
       enabled: true
       file: compose.yaml
   datasource:
-    url: jdbc:postgresql://
+    url: jdbc:postgresql://jobinow-db:5432/jobinow
     username:
     password:
     driver-class-name: org.postgresql.Driver
@@ -68,10 +68,10 @@ spring:
           issuer-uri: https://accounts.google.com
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   mail:
-    host:
-    port:
-    username:
-    password:
+    host: smtp.gmail.com
+    port: 587
+    username: fadwacherqui2@gmail.com
+    password: cmup wxrx rusq tapz
     properties:
       mail:
         smtp:
@@ -82,10 +82,10 @@ spring:
 
 application:
   stripe:
-    secret-key:
+    secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   security:
     jwt:
-      secret-key:
-      expiration:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000
       refresh-token:
-        expiration:
+        expiration: 604800000

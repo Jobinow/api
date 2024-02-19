@@ -18,6 +18,9 @@ public record OptionRequestDto(
 
 
         @NotNull(message = "Question cannot be null")
-        QuestionResponseDto question
+        QuestionResponseDto question,
+
+        @NotNull(message = "Correctness flag cannot be null")
+        boolean isCorrect
 ) implements _Request {
 }

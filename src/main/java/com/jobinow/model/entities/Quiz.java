@@ -55,7 +55,7 @@ public class Quiz extends AbstractEntity {
     /**
      * The badge associated with this quiz.
      */
-    @OneToOne
+    @OneToOne(mappedBy = "quiz")
     private Badge badge;
 
     /**

@@ -22,8 +22,7 @@ import java.util.UUID;
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {QuizMapper.class, ProfilMapper.class}
+        componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface BadgeMapper extends _Mapper<UUID, BadgeRequestDto, BadgeResponseDto, Badge> {
     // Inherited methods from _Mapper will be automatically implemented by MapStruct,

@@ -43,7 +43,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: ouharri/jobinow-api:latest
+    image: "jobinow"
     ports:
       - "8085:8084"
     depends_on:
